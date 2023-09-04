@@ -1,5 +1,25 @@
 @extends('dashboard.layouts.app')
+@section('css')
+    <style>
+        .card {
+            margin-top: 100px;
+        }
 
+        .btn-upload {
+            padding: 10px 20px;
+            margin-left: 10px;
+        }
+
+        .upload-input-group {
+            margin-bottom: 10px;
+        }
+
+        .input-group>.custom-select:not(:last-child),
+        .input-group>.form-control:not(:last-child) {
+            height: 45px;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="breadcrumb">
         <a href="#">
@@ -70,6 +90,44 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+
+                <div class="card-body card-block">
+                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+
+                        <div class="row form-group">
+                            <div class="col-12 col-md-12">
+                                <div class="control-group" id="fields">
+                                    <label class="control-label" for="field1">
+                                        اضافة ليست من الصور
+                                    </label>
+                                    <div class="controls">
+                                        <div class="entry input-group upload-input-group">
+                                            <input class="form-control" name="fields[]" type="file">
+                                            <button class="btn btn-upload btn-success btn-add" type="button">
+                                                <i class="">إضافة</i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <button class="btn btn-primary">حفظ</button>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <h1>دي هنستخدمها علشانن نضيف اكتر من خدمة جوا الليست</h1>
     <div class="card-body">
         <div class="input-group control-group  after-add-more">
@@ -91,6 +149,33 @@
 @endsection
 <!-- ============ Body content End ============= -->
 @section('js')
+    <script>
+        $(function() {
+            $(document)
+                .on("click", ".btn-add", function(e) {
+                    e.preventDefault();
+
+                    var controlForm = $(".controls:first"),
+                        currentEntry = $(this).parents(".entry:first"),
+                        newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+                    newEntry.find("input").val("");
+                    controlForm
+                        .find(".entry:not(:last) .btn-add")
+                        .removeClass("btn-add")
+                        .addClass("btn-remove")
+                        .removeClass("btn-success")
+                        .addClass("btn-danger")
+                        .html('<span class="fa fa-trash">حذف</span>');
+                })
+                .on("click", ".btn-remove", function(e) {
+                    $(this).parents(".entry:first").remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function() {
             $(".add-more").click(function() {

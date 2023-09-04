@@ -22,7 +22,7 @@
                             </div>
                             <h1 class="mb-3 text-18">Sign In</h1>
                             @include('dashboard.layouts.message')
-                            <form action="{{ url('') }}">
+                            <form action="{{ url('home') }}">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
                                     <input id="email" class="form-control form-control-rounded" type="email">
