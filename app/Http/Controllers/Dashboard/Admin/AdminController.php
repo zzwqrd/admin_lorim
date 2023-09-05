@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $data = Admin::all();
+        return view('dashboard.admin.index', compact('data'));
     }
 
     /**

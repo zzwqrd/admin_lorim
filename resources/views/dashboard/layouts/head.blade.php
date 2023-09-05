@@ -22,8 +22,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/datatables.min.css">
-    <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/datatables.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/css/themes/lite-purple.min.css">
+
 
 
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/css/select2.min.css">

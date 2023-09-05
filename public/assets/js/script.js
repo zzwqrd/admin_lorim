@@ -45,6 +45,20 @@ $(document).ready(function () {
         }
     }
 
+    // Secondary sidebar dropdown menu
+    var $dropdown = $(".dropdown-sidemenu");
+    var $subMenu = $(".submenu");
+
+    $dropdown.find("> a").on("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $parent = $(this).parent(".dropdown-sidemenu");
+        $dropdown.not($parent).removeClass("open");
+        $(this)
+            .parent(".dropdown-sidemenu")
+            .toggleClass("open");
+    });
+
     function requestFullScreen(el) {
         // Supports most browsers and their versions.
         var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen;

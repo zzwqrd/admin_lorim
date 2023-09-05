@@ -18,6 +18,9 @@
 
 
 <script src="{{ asset('assets') }}/js/select2-4.1.0.min.js"></script>
+<script src="{{ asset('assets') }}/js/script.js"></script>
+
+<script src="{{ asset('assets') }}/js/es5/sidebar.large.script.min.js"></script>
 
 <!-- page custom js -->
 <script src="{{ asset('assets') }}/js/datatables.script.js"></script>
