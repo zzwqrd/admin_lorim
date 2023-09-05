@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'role' => "1",
             'created_at' => date("Y-m-d h:i:s"),
             'updated_at' => date("Y-m-d h:i:s"),
-            'password' => Hash::make('123456789'),
+            'password' => Hash::make('123456'),
         ]);
     }
 }
