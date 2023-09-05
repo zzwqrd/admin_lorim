@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl">
 
 <head>
     <meta charset="UTF-8">
@@ -10,36 +10,59 @@
     <link rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
 </head>
 
-<body class="text-left">
-    <div class="auth-layout-wrap" style="background-image: url({{ asset('././assets/images/photo-wide-4.jpg') }})">
+<body class="text-right">
+    <div class="auth-layout-wrap" style="background-image: url({{ asset('assets/images/photo-wide-4.jpg') }})">
         <div class="auth-content">
             <div class="card o-hidden">
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
+                <div class="row align-content-center">
+                    <div class="col-md-12 text-center">
                         <div class="p-4">
                             <div class="auth-logo text-center mb-4">
-                                <img src="assets/images/logo.png" alt="">
+                                <img src="{{ asset('assets/images/logo.png') }}" alt="" />
                             </div>
-                            <h1 class="mb-3 text-18">Sign In</h1>
+                            <h1 class="mb-3 text-18" style="color: #5504a5;">الدخول إلى لوحة التحكم</h1>
                             @include('dashboard.layouts.message')
                             <form action="{{ url('admin/login/post') }}" method="POST" role="form">
+
+                                {{-- @method('POST') --}}
+
                                 @csrf
                                 <div class="form-group">
-                                    <label for="email">Email address</label>
-                                    <input id="email" class="form-control form-control-rounded" type="email">
+                                    <label for="email" style="color: #5504a5;">البريد الإلكتروني</label>
+                                    <input id="email" name="email" class="form-control form-control-rounded"
+                                        type="email" autocomplete="off" required>
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>البريد الالكتروني مطلوب ويجب ان يكون صحيح</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input id="password" class="form-control form-control-rounded" type="password">
+                                    <label for="password" style="color: #5504a5;">كلمة المرور</label>
+                                    <input id="password" name="password" class="form-control form-control-rounded"
+                                        type="password">
+                                    @if ($errors->has('password'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>كلمه المرور مطلوبه ويجب ان لا تقل عن 8 حروف او ارقام</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                                <button class="btn btn-rounded btn-primary btn-block mt-2">Sign
-                                    In</button>
+                                <div class="mt-3 ">
+                                    <div class="text-left" style="float: right">
+                                        <label class="checkbox checkbox-outline-info ">
+                                            <input type="checkbox" name="remember">
+                                            <span>تذكرني</span>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="text-right">
+                                        <a href="#" style="color: #5504a5;"><u>نسيت كلمة المرور</u></a>
+                                    </div>
+                                </div>
+                                <button class="btn btn-rounded btn-primary btn-block submit mt-2">تسجيل الدخول</button>
 
                             </form>
 
-                            <div class="mt-3 text-center">
-                                <a href="forgot.html" class="text-muted"><u>Forgot Password?</u></a>
-                            </div>
                         </div>
                     </div>
 
@@ -47,7 +70,6 @@
             </div>
         </div>
     </div>
-
 
     <script src="{{ asset('assets/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>

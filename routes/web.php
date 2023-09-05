@@ -30,5 +30,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(function () {
-    Route::get('', [HomeController::class, 'index'])->name('home');
+    Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
+    Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 });

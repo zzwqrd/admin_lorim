@@ -26,10 +26,10 @@
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-header row ">
-                        <i class="i-Lock-User mr-1">sdhfus</i>
+                        <i class="i-Lock-User mr-1">{{ auth('admin')->user()->username }}</i>
                     </div>
                     <a class="dropdown-item" href="#">تعديل كلمة المرور</a>
-                    <a class="dropdown-item" href="#">تسجيل خروج</a>
+                    <a class="dropdown-item" href="{{ route('dashboard.logout') }}">تسجيل خروج</a>
                 </div>
             </div>
         </div>
