@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Admin\LoginController;
-use App\Http\Controllers\Dashboard\HomeController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +31,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(function () {
     Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
+
+    Route::prefix('section')->middleware('adminRole')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Dashboard\SectionController::class, 'index']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\SectionController::class, 'create']);
+        Route::post('store', [\App\Http\Controllers\Dashboard\SectionController::class, 'store']);
+    });
 });

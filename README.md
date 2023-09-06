@@ -15,6 +15,12 @@ php artisan migrate:fresh
 
 php artisan db:seed
 
+-----***-------
+
+php artisan  make:controller Dashboard/SectionController --resource --model=Sections
+
+-----***-------
+
 
 
 login page : <http://127.0.0.1:8000/admin/login>
