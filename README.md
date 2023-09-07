@@ -17,7 +17,7 @@ php artisan db:seed
 
 -----***-------
 
-php artisan  make:controller Dashboard/SectionController --resource --model=Sections
+php artisan  make:controller Dashboard/SubSectionController --resource --model=SubSections
 
 -----***-------
 

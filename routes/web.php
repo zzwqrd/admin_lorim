@@ -44,4 +44,12 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
     });
 
     // الاقسام الفرعية
+    Route::prefix('sub_section')->middleware('adminRole')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'index']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'create']);
+        Route::post('store', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'store']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'edit']);
+        Route::post('update', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'update']);
+        Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'destroy']);
+    });
 });
