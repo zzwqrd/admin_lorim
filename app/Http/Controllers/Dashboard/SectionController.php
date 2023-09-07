@@ -68,9 +68,13 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sections $sections)
+    public function edit($id)
     {
-        //
+        $this->validate(request(), ['id' => $id], [
+            'id' => 'required|integer|exists:sections,id',
+        ]);
+        $data = Sections::findOrFail($id);
+        return view('dashboard.sections.edit', compact('data'));
     }
 
     /**
@@ -78,14 +82,59 @@ class SectionController extends Controller
      */
     public function update(Request $request, Sections $sections)
     {
-        //
+        $request->validate([
+            'id' => 'required|integer|exists:sections,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+            'title' => 'nullable|string',
+        ]);
+        $sections = Sections::findOrFail($request->id);
+
+        if ($request->hasFile('image')) {
+            $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
+            $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
+            if (!$imageMove) {
+                return response()->json(['message' => trans('response.failed')], 444);
+            }
+            if ($sections->image != null && file_exists(public_path('uploads/sections/' . $sections->image))) {
+                unlink(public_path('uploads/sections/' . $sections->image));
+            }
+            $inputs['image'] = $imageName;
+        }
+
+        $inputs['title'] = $request->title;
+
+        $update = $sections->update($inputs);
+        if (!$update) {
+            return back()->with('error', trans('response.failed'));
+        }
+        return back()->with('success', trans('response.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sections $sections)
+    public function destroy($id)
     {
-        //
+        Validator::make(
+            [
+                'id' => $id,
+            ],
+            [
+                'id' => 'required|integer|exists:sections,id'
+            ],
+        )->validate();
+        $section = Sections::findOrFail(request()->id);
+
+        $delete = $section->delete();
+
+        if (!$delete) {
+            return back()->with('error', trans('خطأ'));
+
+        }
+        if ($section->image != null && file_exists(public_path('uploads/sections/' . $section->image))) {
+            unlink(public_path('uploads/sections/' . $section->image));
+        }
+        return back()->with('success', trans('response.deleted'));
+
     }
 }

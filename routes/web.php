@@ -32,9 +32,16 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
     Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 
+
+    // الاقسام الرئيسية
     Route::prefix('section')->middleware('adminRole')->group(function () {
         Route::get('index', [\App\Http\Controllers\Dashboard\SectionController::class, 'index']);
         Route::get('create', [\App\Http\Controllers\Dashboard\SectionController::class, 'create']);
         Route::post('store', [\App\Http\Controllers\Dashboard\SectionController::class, 'store']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\SectionController::class, 'edit']);
+        Route::post('update', [\App\Http\Controllers\Dashboard\SectionController::class, 'update']);
+        Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\SectionController::class, 'destroy']);
     });
+
+    // الاقسام الفرعية
 });

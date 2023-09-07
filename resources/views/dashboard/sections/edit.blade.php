@@ -25,7 +25,7 @@
                 @include('dashboard.layouts.message')
 
                 <div class="card-body">
-                    <form id="change-pwd" action="{{ url('dashboard/category/update') }}" method="post"
+                    <form id="change-pwd" action="{{ url('dashboard/section/update') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="avatar-preview">
                                         <div id="imagePreview"
-                                            style="background-image: url({{ config('category_storage') . $data->image }});">
+                                            style="background-image: url({{ config('section_storage') . $data->image }});">
                                         </div>
                                     </div>
                                 </div>
