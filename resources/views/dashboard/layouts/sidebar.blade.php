@@ -408,7 +408,7 @@
                 </ul>
                 <ul class="childNav" data-parent="uikits">
                     <li class="nav-item">
-                        <a href="show-admin-list.html">
+                        <a href="{{ url('dashboard/admin/index') }}">
                             <!-- <i class="nav-icon i-Add"></i> -->
                             <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
                             <span class="item-name">قائمة المديرين</span>

@@ -39,15 +39,18 @@ class SectionController extends Controller
         ]);
 
         $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
+        $imageMove = request()->file('image')->move(public_path('uploads/sections/'), $imageName);
 
-        $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
-
-        $photoUrl = url('/uploads/sections' . $imageName);
+        $photoUrl = url('uploads/sections/' . $imageName);
         if (!$photoUrl) {
-            return back()->with('error', trans('response.failed'));
+            return response()->json([
+                'status' => false,
+                'message' => 'حدث شئ ما خطأ لم يتم رفع الصورة',
+            ], 200);
         }
 
-        $inputs['image'] = $imageName;
+
+        $inputs['image'] = $photoUrl;
         $inputs['title'] = $request->title;
 
         $create = Sections::create($inputs);
@@ -92,14 +95,27 @@ class SectionController extends Controller
         if ($request->hasFile('image')) {
             $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
             $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
-            if (!$imageMove) {
+            $photoUrl = url('uploads/sections/' . $imageName);
+            if (!$photoUrl) {
                 return response()->json(['message' => trans('response.failed')], 444);
             }
             if ($sections->image != null && file_exists(public_path('uploads/sections/' . $sections->image))) {
                 unlink(public_path('uploads/sections/' . $sections->image));
             }
-            $inputs['image'] = $imageName;
+            $inputs['image'] = $photoUrl;
         }
+
+        // if ($request->hasFile('image')) {
+        //     $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
+        //     $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
+        //     if (!$imageMove) {
+        //         return response()->json(['message' => trans('response.failed')], 444);
+        //     }
+        //     if ($sections->image != null && file_exists(public_path('uploads/sections/' . $sections->image))) {
+        //         unlink(public_path('uploads/sections/' . $sections->image));
+        //     }
+        //     $inputs['image'] = $imageName;
+        // }
 
         $inputs['title'] = $request->title;
 

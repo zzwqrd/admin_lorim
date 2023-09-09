@@ -32,7 +32,11 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
     Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 
+    // المديرين
+    Route::prefix('admin')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'index'])->middleware('adminRole');
 
+    });
     // الاقسام الرئيسية
     Route::prefix('section')->middleware('adminRole')->group(function () {
         Route::get('index', [\App\Http\Controllers\Dashboard\SectionController::class, 'index']);
