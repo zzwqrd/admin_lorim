@@ -25,12 +25,12 @@
                 @include('dashboard.layouts.message')
 
                 <div class="card-body">
-                    <form id="change-pwd" action="{{ url('dashboard/section/update') }}" method="post"
+                    <form id="change-pwd" action="{{ url('dashboard/sub_section/update') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="{{ $data->id }}">
                         <div class="row">
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <h3 class="text-center">الصورة</h3>
                                 <div class="avatar-upload">
                                     <div class="avatar-edit">
@@ -48,7 +48,7 @@
                                         <strong>{{ $errors->first('image') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="title">الإسم </label>
@@ -71,6 +71,23 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="section"> القسم</label>
+                                <select class="form-control attribute" name="section" id="section">
+                                    <option selected disabled>اختر القسم </option>
+                                    @foreach ($sections as $section)
+                                        <option value="{{ $section->id }}"
+                                            @if ($data->section_id == $section->id) selected @endif> {{ $section->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('section'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('section') }} </strong>
+                                    </span>
+                                @endif
+                            </div>
+
 
 
                             <div class="col-md-12">
