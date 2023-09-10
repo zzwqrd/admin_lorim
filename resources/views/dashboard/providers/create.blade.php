@@ -70,20 +70,6 @@
                                 @endif
                             </div>
 
-                            {{-- <div class="col-md-6 form-group mb-3">
-                                <label for="section"> القسم</label>
-                                <select class="form-control attribute" name="section" id="section">
-                                    <option selected disabled>اختر القسم </option>
-                                    @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}">{{ $section->title }}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('section') }} </strong>
-                                    </span>
-                                @endif
-                            </div> --}}
 
                             <div class="col">
                                 <label for="inputName" class="control-label">القسم</label>

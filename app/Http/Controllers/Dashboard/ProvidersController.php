@@ -37,7 +37,45 @@ class ProvidersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
+            'description' => 'required|string|max:255',
+            'rate' => 'required|string|max:255',
+            'section' => 'required|integer|exists:sections,id',
+            'sub_section' => 'required|integer|exists:sub_sections,id',
+            'status' => 'required|integer|max:5',
+            'lat' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'lng' => ['required', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+
+        ]);
+        $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
+        $imageMove = request()->file('image')->move(public_path('uploads/providers/'), $imageName);
+
+        $photoUrl = url('uploads/providers/' . $imageName);
+        if (!$photoUrl) {
+            return response()->json([
+                'status' => false,
+                'message' => 'حدث شئ ما خطأ لم يتم رفع الصورة',
+            ], 200);
+        }
+
+
+        $inputs['image'] = $photoUrl;
+        $inputs['title'] = $request->title;
+        $inputs['section_id'] = $request->section;
+        $inputs['sub_section_id'] = $request->sub_section;
+        $inputs['lat'] = $request->lat;
+        $inputs['lng'] = $request->lng;
+        $inputs['status'] = $request->status;
+        $inputs['rate'] = $request->rate;
+        $inputs['description'] = $request->description;
+
+        $create = Providers::create($inputs);
+        if (!$create) {
+            return back()->with('error', trans('response.failed'));
+        }
+        return back()->with('success', trans('response.added'));
     }
 
     /**

@@ -19,9 +19,9 @@ return new class extends Migration {
             $table->string('lng');
             $table->double('rate')->default('0')->unsigned();
             $table->enum('status', ['0', '1'])->default('1');
-            $table->string('sub_section');
             $table->unsignedInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->unsignedInteger('sub_section_id');
+            // $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->timestamps();
         });
     }
