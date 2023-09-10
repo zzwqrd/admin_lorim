@@ -56,4 +56,16 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
         Route::post('update', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'update']);
         Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'destroy']);
     });
+
+    // مقدمين الخدمة providers
+
+    Route::prefix('providers')->middleware('adminRole')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'index']);
+        Route::get('show/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'show']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'create']);
+        Route::post('store', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'store']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'edit']);
+        Route::post('update', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'update']);
+        Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroy']);
+    });
 });

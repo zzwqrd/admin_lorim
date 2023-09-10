@@ -246,12 +246,12 @@
                             <i class="dd-arrow i-Arrow-Down"></i>
                         </a>
                         <ul class="submenu">
-                            <a href="#">
+                            <a href="{{ url('dashboard/providers/index') }}">
                                 <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
                                 <span class="item-name">الشركات</span>
                             </a>
                             <li class="nav-item">
-                                <a href="#">
+                                <a href="{{ url('dashboard/providers/create') }}">
                                     <i class="nav-icon i-Add"></i>
                                     <span class="item-name">اضافة شركة</span>
                                 </a>

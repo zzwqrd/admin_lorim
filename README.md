@@ -17,7 +17,8 @@ php artisan db:seed
 
 -----***-------
 
-php artisan  make:controller Dashboard/SubSectionController --resource --model=SubSections
+php artisan  make:controller Dashboard/ProvidersController --resource --model=Providers
+php artisan make:migration add_sections_id_to_providers_table --table=providers
 
 -----***-------
 
