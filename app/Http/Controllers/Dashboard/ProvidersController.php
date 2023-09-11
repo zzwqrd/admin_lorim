@@ -40,17 +40,20 @@ class ProvidersController extends Controller
         // dd(request()->all());
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:5120',
             'description' => 'nullable|string|max:255',
-            'rate' => 'nullable|string|max:255',
+            'rate' => 'nullable|double|max:255',
             'section' => 'required|integer|exists:sections,id',
             'subsection' => 'required|integer|exists:sub_sections,id',
-            'status' => 'nullable|integer|max:5',
+            'status' => 'nullable|enum|max:5',
             'lat' => ['nullable', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
             'lng' => ['nullable', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
-
         ]);
+
+
+
         $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
+
         $imageMove = request()->file('image')->move(public_path('uploads/providers/'), $imageName);
 
         $photoUrl = url('uploads/providers/' . $imageName);
@@ -60,6 +63,7 @@ class ProvidersController extends Controller
                 'message' => 'حدث شئ ما خطأ لم يتم رفع الصورة',
             ], 200);
         }
+
 
 
         $inputs['image'] = $photoUrl;
@@ -87,8 +91,6 @@ class ProvidersController extends Controller
      */
     public function show($id)
     {
-        // $sub_section = DB::table("sub_sections")->where("section_id", $id)->pluck("title", "id");
-        // return json_encode($sub_section);
 
         Validator::make(
             [

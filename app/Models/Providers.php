@@ -14,7 +14,7 @@ class Providers extends Model
 
 
     protected $fillable = [
-        'name',
+        'title',
         'image',
         'description',
         'rate',

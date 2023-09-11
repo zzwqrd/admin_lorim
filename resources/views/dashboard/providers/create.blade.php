@@ -73,7 +73,7 @@
 
                             <div class="col">
                                 <label for="inputName" class="control-label">القسم</label>
-                                <select name="Section" class="form-control SlectBox" onclick="console.log($(this).val())"
+                                <select name="section" class="form-control SlectBox" onclick="console.log($(this).val())"
                                     onchange="console.log('change is firing')">
                                     <!--placeholder-->
                                     <option value="" selected disabled>حدد القسم</option>
@@ -96,11 +96,6 @@
                                 @endif
                             </div>
 
-
-
-
-
-
                             <div class="col-md-12">
                                 <button class="btn btn-primary">حفظ</button>
                             </div>
@@ -119,7 +114,7 @@
 
     <script>
         $(document).ready(function() {
-            $('select[name="Section"]').on('change', function() {
+            $('select[name="section"]').on('change', function() {
                 var SectionId = $(this).val();
                 if (SectionId) {
                     $.ajax({

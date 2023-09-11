@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('providers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image');
-            $table->string('name');
+            $table->string('title');
             $table->string('description');
             $table->string('lat');
             $table->string('lng');
@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->enum('status', ['0', '1'])->default('1');
             $table->unsignedInteger('section_id');
             $table->unsignedInteger('sub_section_id');
-            // $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->timestamps();
         });
     }
