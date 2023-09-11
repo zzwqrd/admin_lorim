@@ -57,7 +57,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
         Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\SubSectionController::class, 'destroy']);
     });
 
-    // مقدمين الخدمة providers
+    // مقدمين الخدمة
 
     Route::prefix('providers')->middleware('adminRole')->group(function () {
         Route::get('index', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'index']);

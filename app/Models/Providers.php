@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Providers extends Model
 {
-    use HasFactory;
+
 
     protected $table = 'providers';
 
@@ -22,11 +22,15 @@ class Providers extends Model
         'lat',
         'lng',
         'section_id',
-        'sub_section',
+        'sub_section_id',
     ];
 
     public function section()
     {
         return $this->belongsTo(Sections::class, 'section_id', 'id');
+    }
+    public function subsection()
+    {
+        return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
     }
 }

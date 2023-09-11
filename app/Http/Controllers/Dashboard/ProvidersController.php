@@ -7,7 +7,7 @@ use App\Models\Providers;
 use App\Models\Sections;
 use App\Models\SubSections;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use Validator;
 
 class ProvidersController extends Controller
@@ -37,16 +37,17 @@ class ProvidersController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(request()->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
-            'description' => 'required|string|max:255',
-            'rate' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'rate' => 'nullable|string|max:255',
             'section' => 'required|integer|exists:sections,id',
-            'sub_section' => 'required|integer|exists:sub_sections,id',
-            'status' => 'required|integer|max:5',
-            'lat' => ['required', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'lng' => ['required', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
+            'subsection' => 'required|integer|exists:sub_sections,id',
+            'status' => 'nullable|integer|max:5',
+            'lat' => ['nullable', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'lng' => ['nullable', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
 
         ]);
         $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
@@ -64,14 +65,17 @@ class ProvidersController extends Controller
         $inputs['image'] = $photoUrl;
         $inputs['title'] = $request->title;
         $inputs['section_id'] = $request->section;
-        $inputs['sub_section_id'] = $request->sub_section;
+        $inputs['sub_section_id'] = $request->subsection;
         $inputs['lat'] = $request->lat;
         $inputs['lng'] = $request->lng;
         $inputs['status'] = $request->status;
         $inputs['rate'] = $request->rate;
         $inputs['description'] = $request->description;
 
+
         $create = Providers::create($inputs);
+
+
         if (!$create) {
             return back()->with('error', trans('response.failed'));
         }
