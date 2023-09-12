@@ -70,6 +70,61 @@
                                 @endif
                             </div>
 
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="description">description </label>
+                                <input type="text" class="form-control" name="description" id="description"
+                                    placeholder="description " value="{{ old('description') }}" autocomplete="off">
+                                @if ($errors->has('description'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->has('description') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="rate">rate </label>
+                                <input type="number" class="form-control" name="rate" id="rate" placeholder="rate "
+                                    value="{{ old('rate') }}" autocomplete="off">
+                                @if ($errors->has('rate'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->has('rate') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="status">status </label>
+                                <input type="number" class="form-control" name="status" id="status"
+                                    placeholder="status " value="{{ old('status') }}" autocomplete="off">
+                                @if ($errors->has('status'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->has('status') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="lat">lat </label>
+                                <input type="number" class="form-control" name="lat" id="lat" placeholder="lat "
+                                    value="{{ old('lat') }}" autocomplete="off">
+                                @if ($errors->has('lat'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->has('lat') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="lng">lng </label>
+                                <input type="number" class="form-control" name="lng" id="lng"
+                                    placeholder="lng " value="{{ old('lng') }}" autocomplete="off">
+                                @if ($errors->has('lng'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->has('lng') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
 
                             <div class="col">
                                 <label for="inputName" class="control-label">القسم</label>
@@ -84,14 +139,14 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="sub_section"> القسم الفرعي</label>
-                                <select class="form-control attribute" name="sub_section" id="sub_section">
+                                <label for="subsection"> القسم الفرعي</label>
+                                <select class="form-control attribute" name="subsection" id="subsection">
                                     <option selected disabled>اختر القسم أولا </option>
 
                                 </select>
-                                @if ($errors->has('sub_section'))
+                                @if ($errors->has('subsection'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('sub_section') }} </strong>
+                                        <strong>{{ $errors->first('subsection') }} </strong>
                                     </span>
                                 @endif
                             </div>
@@ -123,12 +178,12 @@
                         dataType: "json",
                         success: function(data) {
                             if (data.status == 1) {
-                                $('#sub_section option').remove();
-                                $('#sub_section').append(
+                                $('#subsection option').remove();
+                                $('#subsection').append(
                                     "<option selected disabled>اختر التصنيف</option>");
                                 $.each(data.data, function(index, value) {
                                     // console.log(data.data);
-                                    $('#sub_section').append("<option value=" + value
+                                    $('#subsection').append("<option value=" + value
                                         .id + ">" + value.title + "</option>");
                                 });
                             }

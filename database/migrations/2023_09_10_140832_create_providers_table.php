@@ -20,7 +20,9 @@ return new class extends Migration {
             $table->double('rate')->default('0')->unsigned();
             $table->enum('status', ['0', '1'])->default('1');
             $table->unsignedInteger('section_id');
+            $table->foreign('section_id')->references('id')->on('sections');
             $table->unsignedInteger('sub_section_id');
+            $table->foreign('sub_section_id')->references('id')->on('sub_sections');
             $table->timestamps();
         });
     }

@@ -38,16 +38,17 @@ class ProvidersController extends Controller
     public function store(Request $request)
     {
         // dd(request()->all());
+
         $request->validate([
             'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:5120',
-            'description' => 'nullable|string|max:255',
-            'rate' => 'nullable|double|max:255',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
+            'description' => 'required|string|max:255',
+            'rate' => 'required|integer|max:20',
+            'status' => 'required|integer|max:5',
+            'lat' => 'required|integer',
+            'lng' => 'required|integer',
             'section' => 'required|integer|exists:sections,id',
             'subsection' => 'required|integer|exists:sub_sections,id',
-            'status' => 'nullable|enum|max:5',
-            'lat' => ['nullable', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
-            'lng' => ['nullable', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
         ]);
 
 

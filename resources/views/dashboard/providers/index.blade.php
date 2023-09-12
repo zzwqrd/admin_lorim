@@ -35,7 +35,12 @@
                                 <thead>
                                     <tr>
                                         <th>الاسم </th>
+                                        <th>تفاصيل</th>
                                         <th> الصورة </th>
+                                        <th> القسم </th>
+                                        <th> القسم الفرعي</th>
+                                        <th>التقييم</th>
+                                        <th> الحالة </th>
                                         <th>التحكم </th>
 
                                     </tr>
@@ -45,10 +50,32 @@
                                         @foreach ($data as $item)
                                             <tr>
                                                 <td>{{ $item->title }}</td>
+                                                <td>{{ $item->description }}</td>
                                                 <td>
                                                     <img src="{{ config('provider_storage') . $item->image }}"
                                                         width="200" height="100" alt="">
                                                 </td>
+                                                <td>{{ $item->section->title }}</td>
+                                                <td>{{ $item->subsection->title }}</td>
+                                                <td><span
+                                                        class="badge badge-pill badge-success ml-1 mr-1">{{ $item->rate }}</span>
+                                                </td>
+                                                @if ($item->status == '1')
+                                                    <td style="text-align: center;"><a
+                                                            href="{{ url('dashboard/user/suspend/' . $item->id) }}"
+                                                            class="badge badge-success status-btn"
+                                                            style="width:80px;height: 25px;padding:auto;margin:auto;
+                                                    padding-top: 7px; font-size: small">نشط</a>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: center;"><a
+                                                            href="{{ url('dashboard/user/activate/' . $item->id) }}"
+                                                            class="badge badge-danger status-btn"
+                                                            style="width:80px;height: 25px;padding:auto;margin:auto;
+                                                    padding-top: 7px; font-size: small">غير
+                                                            نشط</a></td>
+                                                @endif
+
                                                 <td style="text-align: center;">
                                                     <a href="{{ url('dashboard/providers/edit/' . $item->id) }}"
                                                         class="text-info mr-2">
