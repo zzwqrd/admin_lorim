@@ -150,7 +150,9 @@
                                     </span>
                                 @endif
                             </div>
-
+                            {{-- <div class="col-12 pt-3">
+                                <textarea name="description" class="editor with-file-explorer">{{ old('description') }}</textarea>
+                            </div> --}}
                             <div class="col-md-12">
                                 <button class="btn btn-primary">حفظ</button>
                             </div>
@@ -166,7 +168,26 @@
 @section('js')
     <script src="{{ asset('assets') }}/js/image.js"></script>
 
+    <script>
+        var temp_file_selector = document.getElementById('temp_file_selector') !== null ? document.getElementById(
+            'temp_file_selector').value : null;
 
+        tinymce.init({
+            selector: '.editor,#editor',
+            plugins: ' advlist image media autolink code codesample directionality table wordcount quickbars link lists',
+            images_upload_url: "http://127.0.0.1:8000/admin/upload/image?_token=rZG2kOf5nzlfMzCd3UYDOx36LqVCBLqQ5rp479cj&temp_file_selector=" +
+                temp_file_selector,
+            file_picker_types: 'file image media',
+            image_caption: true,
+            image_dimensions: true,
+            directionality: 'rtl',
+            language: 'ar',
+            quickbars_selection_toolbar: 'bold italic |h1 h2 h3 h4 h5 h6| formatselect | quicklink blockquote | numlist bullist',
+            entity_encoding: "raw",
+            verify_html: false,
+            object_resizing: 'img',
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('select[name="section"]').on('change', function() {

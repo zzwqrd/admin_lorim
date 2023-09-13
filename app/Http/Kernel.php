@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminAuth::class,
         'adminRole' => \App\Http\Middleware\AdminRole::class,
         'guestAdmin' => \App\Http\Middleware\DashboardGuest::class,
+        'apiAuth' => \App\Http\Middleware\ApiAuth::class,
     ];
 }

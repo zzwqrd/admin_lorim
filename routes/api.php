@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('user')->group(function () {
+    Route::post('register', [\App\Http\Controllers\Api\User\RegisterController::class, 'register']);
+    Route::post('verify', [\App\Http\Controllers\Api\User\VerifyController::class, 'verify']);
+    Route::post('resend_verification_code', [\App\Http\Controllers\Api\User\VerifyController::class, 'resend']);
+    Route::post('login', [\App\Http\Controllers\Api\User\LoginController::class, 'login']);
+
+
+
+
+    Route::prefix('password')->group(function () {
+        Route::post('forget', 'User\ResetPasswordController@sendCode');
+        Route::post('check', 'User\ResetPasswordController@check');
+        Route::post('reset', 'User\ResetPasswordController@resetPassword');
+    });
+
 });
