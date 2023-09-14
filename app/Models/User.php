@@ -23,10 +23,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Notification::class, 'user_id', 'id');
     }
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class, 'user_id', 'id')->orderBy('id', 'desc');
-    }
+    // public function orders()
+    // {
+    //     return $this->hasMany(Order::class, 'user_id', 'id')->orderBy('id', 'desc');
+    // }
 
 
     protected $fillable = [

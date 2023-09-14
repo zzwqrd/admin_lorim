@@ -362,14 +362,14 @@
 
                 <ul class="childNav" data-parent="extrakits">
                     <li class="nav-item">
-                        <a href="show-users-list.html">
+                        <a href="{{ url('dashboard/user/index') }}">
                             <!-- <i class="nav-icon i-Add"></i> -->
                             <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
                             <span class="item-name">قائمة المستخدمين</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="add-user.html">
+                        <a href="{{ url('dashboard/user/create') }}">
                             <!-- <i class="nav-icon i-Add"></i> -->
                             <i class="nav-icon i-Add text-primary"></i>
                             <span class="item-name">أضافة مستخدم</span>

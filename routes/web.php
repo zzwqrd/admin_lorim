@@ -37,6 +37,18 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('admin')->group(funct
         Route::get('index', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'index'])->middleware('adminRole');
 
     });
+    // المستخدمين
+    Route::prefix('user')->middleware('adminRole')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Dashboard\UserController::class, 'index']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\UserController::class, 'create']);
+        Route::get('suspend/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'suspend']);
+        Route::get('activate/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'activate']);
+        Route::get('show/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'show']);
+        Route::get('delete/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'delete']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'edit']);
+        Route::post('update/{id}', [\App\Http\Controllers\Dashboard\UserController::class, 'update']);
+    });
+
     // الاقسام الرئيسية
     Route::prefix('section')->middleware('adminRole')->group(function () {
         Route::get('index', [\App\Http\Controllers\Dashboard\SectionController::class, 'index']);
