@@ -21,12 +21,10 @@ Route::prefix('user')->group(function () {
     Route::post('login', [\App\Http\Controllers\Api\User\LoginController::class, 'login']);
 
 
-
-
     Route::prefix('password')->group(function () {
-        Route::post('forget', 'User\ResetPasswordController@sendCode');
-        Route::post('check', 'User\ResetPasswordController@check');
-        Route::post('reset', 'User\ResetPasswordController@resetPassword');
+        Route::post('forget', [\App\Http\Controllers\Api\User\ResetPasswordController::class, 'sendCode']);
+        Route::post('check', [\App\Http\Controllers\Api\User\ResetPasswordController::class, 'check']);
+        Route::post('reset', [\App\Http\Controllers\Api\User\ResetPasswordController::class, 'resetPassword']);
     });
 
 });

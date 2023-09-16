@@ -4,7 +4,7 @@
             <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar data-suppress-scroll-x="true">
                 <ul class="navigation-left">
                     <li class="nav-item">
-                        <a class="nav-item-hold" href="home.html">
+                        <a class="nav-item-hold" href="{{ url('/dashboard/') }}">
                             <i class="nav-icon i-Bar-Chart"></i>
                             <span class="nav-text">الرئيسية</span>
                         </a>

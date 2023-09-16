@@ -33,7 +33,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/quill.bubble.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/quill.snow.css">
-    {{--    <link rel="stylesheet" href="{{asset('assets')}}/styles/vendor/dropzone.min.css"> --}}
+    {{-- <link rel="stylesheet" href="{{asset('assets')}}/styles/vendor/dropzone.min.css"> --}}
+    <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/toastr.css">
     <style>
         div.dataTables_wrapper div.dataTables_filter {
             text-align: left !important;

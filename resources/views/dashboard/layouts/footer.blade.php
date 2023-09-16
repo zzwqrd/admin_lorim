@@ -22,6 +22,10 @@
 
 <script src="{{ asset('assets') }}/js/es5/sidebar.large.script.min.js"></script>
 
+<script src="{{ asset('assets') }}/js/vendor/toastr.min.js"></script>
+
+<script src="{{ asset('assets') }}/js/toastr.script.js"></script>
+
 <!-- page custom js -->
 <script src="{{ asset('assets') }}/js/datatables.script.js"></script>
 <script src="{{ asset('assets') }}/js/form.validation.script.js"></script>

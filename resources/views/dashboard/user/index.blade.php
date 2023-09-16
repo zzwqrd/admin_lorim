@@ -40,6 +40,7 @@
                                     <tr>
                                         <th>الإسم </th>
                                         <th>رقم الجوال </th>
+                                        <th> البريد </th>
                                         {{-- <th> العنوان </th> --}}
                                         {{-- <th>الطلبات </th> --}}
 
@@ -54,6 +55,7 @@
                                             <tr>
                                                 <td>{{ $item->name . ' ' . $item->name }}</td>
                                                 <td>{{ $item->phone }}</td>
+                                                <td>{{ $item->email }}</td>
                                                 {{-- <td>{{ $item->city->state . '/' . $item->city->city }}</td> --}}
                                                 {{-- <td>
                                                     @if (count($item->orders) > 0)
