@@ -22,5 +22,10 @@ class Sections extends Model
         return Sections::all();
     }
 
+    public function subsection()
+    {
+        return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
+    }
+
 
 }

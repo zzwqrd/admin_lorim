@@ -120,6 +120,7 @@ class SubSectionController extends Controller
         )->validate();
 
         $data = SubSections::find($id);
+
         if (!$data->delete()) {
             return back()->with('error', trans('response.failed'));
         }
