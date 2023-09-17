@@ -39,6 +39,19 @@ class SectionController extends Controller
             return $this->apiResponse(['message' => trans('response.failed')], 444);
         }
 
-        return response()->json(['data' => ['sections' => new SectionResource($sections), 'subSections' => new SubSectionsResource($subSections)], 'message' => trans('success'), 'status' => 200], 200);
+        return response()->json(
+            [
+                'data' => [
+                    'sections' => new SectionResource($sections),
+                    'subSections' => new SubSectionsResource($subSections)
+                ],
+                'message' => trans('success'),
+                'status' => 200
+            ],
+            200
+        )->withHeaders([
+                'Content-Type' => 'application/json',
+            ]);
+        ;
     }
 }
