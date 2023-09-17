@@ -30,7 +30,11 @@ Route::prefix('user')->group(function () {
 });
 
 
-Route::prefix('sections')->group(function () {
-    Route::get('index', [\App\Http\Controllers\Api\SectionController::class, 'index']);
-    Route::get('show/{id}', [\App\Http\Controllers\Api\SectionController::class, 'show']);
+Route::middleware('apiAuth')->group(function () {
+
+    Route::prefix('sections')->group(function () {
+        Route::get('index', [\App\Http\Controllers\Api\SectionController::class, 'index']);
+        Route::get('show/{id}', [\App\Http\Controllers\Api\SectionController::class, 'show']);
+    });
+
 });
