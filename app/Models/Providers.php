@@ -17,8 +17,6 @@ class Providers extends Model
         'title',
         'image',
         'description',
-        'rate',
-        'status',
         'lat',
         'lng',
         'section_id',
@@ -27,10 +25,10 @@ class Providers extends Model
 
     public function section()
     {
-        return $this->belongsTo(Sections::class, 'section_id', 'id');
+        return $this->morphToMany(Sections::class, 'section_id', 'id');
     }
     public function subsection()
     {
-        return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
+        return $this->morphToMany(SubSections::class, 'sub_section_id', 'id');
     }
 }

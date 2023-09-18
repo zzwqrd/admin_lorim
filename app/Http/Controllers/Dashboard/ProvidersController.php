@@ -43,8 +43,8 @@ class ProvidersController extends Controller
             'title' => 'required|string|max:255',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
             'description' => 'required|string|max:255',
-            'rate' => 'required|integer|max:20',
-            'status' => 'required|integer|max:5',
+            // 'rate' => 'required|integer|max:20',
+            // 'status' => 'required|integer|max:5',
             'lat' => 'required|integer',
             'lng' => 'required|integer',
             'section' => 'required|integer|exists:sections,id',
@@ -73,8 +73,8 @@ class ProvidersController extends Controller
         $inputs['sub_section_id'] = $request->subsection;
         $inputs['lat'] = $request->lat;
         $inputs['lng'] = $request->lng;
-        $inputs['status'] = $request->status;
-        $inputs['rate'] = $request->rate;
+        // $inputs['status'] = $request->status;
+        // $inputs['rate'] = $request->rate;
         $inputs['description'] = $request->description;
 
 

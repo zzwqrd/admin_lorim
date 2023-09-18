@@ -12,6 +12,6 @@ class SubSections extends Model
 
     public function section()
     {
-        return $this->belongsTo(Sections::class, 'section_id', 'id');
+        return $this->morphToMany(Sections::class, 'section_id', 'id');
     }
 }

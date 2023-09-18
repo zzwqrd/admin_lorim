@@ -18,7 +18,7 @@ class SectionController extends Controller
 
         return response()->json(['data' => new SectionResource($data), 200,]);
     }
-    public function show($id)
+    public function show_sub($id)
     {
 
         Validator::make(
@@ -49,9 +49,7 @@ class SectionController extends Controller
                 'status' => 200
             ],
             200
-        )->withHeaders([
-                'Content-Type' => 'application/json',
-            ]);
-        ;
+        );
+
     }
 }
