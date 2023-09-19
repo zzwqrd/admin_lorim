@@ -40,7 +40,8 @@ Route::middleware('apiAuth')->group(function () {
 
     Route::prefix('provider')->group(function () {
         Route::get('index', [\App\Http\Controllers\Api\ProvidersController::class, 'index']);
-        // Route::get('show_sub/{id}', [\App\Http\Controllers\Api\SectionController::class, 'show_sub']);
+        // Route::get('show_provider/{id}', [\App\Http\Controllers\Api\ProvidersController::class, 'show_provider']);
+        Route::get('show/{id}', [\App\Http\Controllers\Api\ProvidersController::class, 'show']);
     });
 
 });

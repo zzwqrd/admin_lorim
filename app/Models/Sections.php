@@ -16,15 +16,19 @@ class Sections extends Model
         'image',
         'title'
     ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
-    public static function sections()
+    public function sections()
     {
-        return Sections::all();
+        return $this->belongsTo(Sections::all());
     }
 
     public function subsection()
     {
-        return $this->morphToMany(SubSections::class, 'sub_section_id', 'id');
+        return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
     }
 
 
