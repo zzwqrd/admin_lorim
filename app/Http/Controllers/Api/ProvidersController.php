@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProvidersResource;
+use App\Http\Resources\SubSectionsResource;
 use App\Models\Providers;
 use App\Models\SubSections;
 use Illuminate\Http\Request;
@@ -22,33 +23,42 @@ class ProvidersController extends Controller
 
     public function show($id)
     {
+        try {
 
-        Validator::make(
-            ['id' => $id],
-            [
-                'id' => 'required|integer|exists:providers,id',
+            Validator::make(
+                ['id' => $id],
+                [
+                    'id' => 'required|integer|exists:providers,id',
 
-            ]
-        )->validate();
+                ]
+            )->validate();
 
-        // $subSection = SubSections::find($id);
-        // $providers = Providers::find($id);
+            // $subSection = SubSections::find($id);
+            // $providers = Providers::find($id);
 
 
-        $subSection = SubSections::with('Providers')->find($id);
+            $subSection = SubSections::with('Providers')->findOrFail($id);
 
-        if (!$subSection) {
+            if (!$subSection) {
 
-            return response()->json(['message' => 'Providers not found'], 404);
+                return response()->json(['message' => 'Providers not found'], 404);
 
+            }
+            // $providers = $subSection->providers;
+
+            return response()->json([
+                'data' => [
+                    'subSection' => $subSection,
+                    // 'Providers' => new ProvidersResource($providers),
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([], 200);
         }
-        // $providers = $subSection->providers;
 
-        return response()->json([
-            'data' => [
-                'subSection' => $subSection,
-                // 'Providers' => new ProvidersResource($providers),
-            ]
-        ]);
+
+
+
+
     }
 }
