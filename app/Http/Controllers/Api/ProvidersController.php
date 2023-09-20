@@ -10,6 +10,8 @@ use App\Models\SubSections;
 use Illuminate\Http\Request;
 use Validator;
 
+
+
 class ProvidersController extends Controller
 {
     public function index()
@@ -55,10 +57,6 @@ class ProvidersController extends Controller
         } catch (\Exception $e) {
             return response()->json([], 200);
         }
-
-
-
-
 
     }
 }
