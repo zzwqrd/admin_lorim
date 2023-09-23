@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->increments('id');
             $table->string('image');
             $table->string('title_ar');
-            $table->string('title_an');
+            $table->string('title_en');
             $table->timestamps();
         });
     }

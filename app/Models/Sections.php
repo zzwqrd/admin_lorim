@@ -14,12 +14,19 @@ class Sections extends Model
 
     protected $fillable = [
         'image',
-        'title'
+        'title_ar',
+        'title_en'
     ];
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
+
+
+    public function getImageAttribute($image)
+    {
+        return isset($image) ? assetsUpload() . 'sections' . $image : '';
+    }
 
     public function sections()
     {

@@ -1,6 +1,23 @@
 <?php
 
 
+
+
+function assetsUpload()
+{
+    return url('uploads/');
+}
+
+function uploadFile($fileAttr, $path = "")
+{
+
+    $imgName = mt_rand(1000, 9999) . microtime(true) . '.' . $fileAttr->getClientOriginalExtension();
+    $fileAttr->move(('uploads/' . $path), $imgName);
+    return $imgName;
+}
+
+
+
 //   start lang fun
 function lang($text = null)
 {

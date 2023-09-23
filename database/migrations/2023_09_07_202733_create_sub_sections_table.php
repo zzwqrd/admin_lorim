@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('sub_sections', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title_ar');
-            $table->string('title_an');
+            $table->string('title_en');
             $table->unsignedInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->timestamps();

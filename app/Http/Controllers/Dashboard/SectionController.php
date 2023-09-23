@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Sections;
 use Illuminate\Http\Request;
-
+use Session;
+use Illuminate\Http\UploadedFile;
 use Validator;
 
 class SectionController extends Controller
@@ -33,27 +34,26 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(request()->all());
         $request->validate([
-            'title' => 'required|string',
+            'title_ar' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
-        ]);
-
-        $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
-        $imageMove = request()->file('image')->move(public_path('uploads/sections/'), $imageName);
-
-        $photoUrl = url('uploads/sections/' . $imageName);
-        if (!$photoUrl) {
-            return response()->json([
-                'status' => false,
-                'message' => 'حدث شئ ما خطأ لم يتم رفع الصورة',
-            ], 200);
-        }
+        ], [
+                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
+                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
+                'image.required' => 'يجب ادخال الصوره',
+            ]);
 
 
-        $inputs['image'] = $photoUrl;
-        $inputs['title'] = $request->title;
+
+        $inputs['image'] = uploadFile($request->image, 'sections');
+        $inputs['title_ar'] = $request->title_ar;
+        $inputs['title_en'] = $request->title_en;
+
 
         $create = Sections::create($inputs);
+
         if (!$create) {
             return back()->with('error', trans('response.failed'));
         }

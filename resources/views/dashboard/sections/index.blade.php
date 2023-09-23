@@ -34,7 +34,8 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>الاسم </th>
+                                        <th> الاسم با اللغه العربيه</th>
+                                        <th> الاسم با اللغه الانجليزيه</th>
                                         <th> الصورة </th>
                                         <th>التحكم </th>
 
@@ -44,10 +45,11 @@
                                     @if (count($data) > 0 && !empty($data))
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td>{{ $item->title }}</td>
+                                                <td>{{ $item->title_ar }}</td>
+                                                <td>{{ $item->title_en }}</td>
                                                 <td>
-                                                    <img src="{{ config('section_storage') . $item->image }}" width="200"
-                                                        height="100" alt="">
+                                                    <img src="{{ $item->image }}" width="200" height="100"
+                                                        alt="">
                                                 </td>
                                                 <td style="text-align: center;">
                                                     <a href="{{ url('dashboard/section/edit/' . $item->id) }}"

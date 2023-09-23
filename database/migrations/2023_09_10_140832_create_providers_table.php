@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('image');
             $table->string('title_ar');
-            $table->string('title_an');
+            $table->string('title_en');
             $table->string('description_ar');
             $table->string('description_en');
             $table->double('rate')->default('0')->unsigned();
