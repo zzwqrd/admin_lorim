@@ -55,9 +55,10 @@ class ProvidersController extends Controller
 
         $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
 
-        $imageMove = request()->file('image')->move(public_path('uploads/providers/'), $imageName);
+
 
         $photoUrl = url('uploads/providers/' . $imageName);
+
         if (!$photoUrl) {
             return response()->json([
                 'status' => false,
@@ -73,8 +74,6 @@ class ProvidersController extends Controller
         $inputs['sub_section_id'] = $request->subsection;
         $inputs['lat'] = $request->lat;
         $inputs['lng'] = $request->lng;
-        // $inputs['status'] = $request->status;
-        // $inputs['rate'] = $request->rate;
         $inputs['description'] = $request->description;
 
 

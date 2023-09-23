@@ -13,10 +13,10 @@ return new class extends Migration {
         Schema::create('providers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image');
-            $table->string('title');
-            $table->string('description');
-            $table->string('lat');
-            $table->string('lng');
+            $table->string('title_ar');
+            $table->string('title_an');
+            $table->string('description_ar');
+            $table->string('description_en');
             $table->double('rate')->default('0')->unsigned();
             $table->enum('status', ['0', '1'])->default('1');
             $table->unsignedInteger('section_id');

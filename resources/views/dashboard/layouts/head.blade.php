@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/quill.snow.css">
     {{-- <link rel="stylesheet" href="{{asset('assets')}}/styles/vendor/dropzone.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('assets') }}/styles/vendor/toastr.css">
+
+
     <style>
         div.dataTables_wrapper div.dataTables_filter {
             text-align: left !important;

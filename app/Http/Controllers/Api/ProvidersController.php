@@ -25,38 +25,30 @@ class ProvidersController extends Controller
 
     public function show($id)
     {
-        try {
-
-            Validator::make(
-                ['id' => $id],
-                [
-                    'id' => 'required|integer|exists:providers,id',
-
-                ]
-            )->validate();
-
-            // $subSection = SubSections::find($id);
-            // $providers = Providers::find($id);
 
 
-            $subSection = SubSections::with('Providers')->findOrFail($id);
+        Validator::make(
+            ['id' => $id],
+            [
+                'id' => 'required|integer|exists:sub_sections,id',
 
-            if (!$subSection) {
+            ]
+        )->validate();
 
-                return response()->json(['message' => 'Providers not found'], 404);
 
-            }
-            // $providers = $subSection->providers;
+        $subSection = SubSections::with('providers')->findOrFail($id);
 
-            return response()->json([
-                'data' => [
-                    'subSection' => $subSection,
-                    // 'Providers' => new ProvidersResource($providers),
-                ]
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([], 200);
+        if (!$subSection) {
+
+            return response()->json(['message' => 'Providers not found'], 404);
+
         }
+
+        return response()->json([
+            'data' => [
+                'subSection' => $subSection,
+            ]
+        ]);
 
     }
 }

@@ -10,6 +10,32 @@
 {{--        </ul> --}}
 {{--    </div> --}}
 {{-- @endif --}}
+
+{{-- <div id="toast-container" class="toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="">
+        <div class="toast-title">Miracle Max Says</div>
+        <div class="toast-message">toastr is a Javascript library for non-blocking notifications. jQuery is required!
+        </div>
+    </div>
+</div> --}}
+{{-- @if ($message = Session::get('success'))
+    <div id="toast-container" class="toast-top-right">
+        @if (is_array($message))
+            @foreach ($message as $m)
+                <h4 class="text-success text-center"> {{ $m }}</h4>
+            @endforeach
+        @else
+            <div class="toast toast-success alert-success" aria-live="polite" style="">
+                <i class="glyphicon glyphicon-remove"></i>
+                <div class="toast-title">{{ $message }}</div>
+            </div>
+        @endif
+
+    </div>
+@endif --}}
+
+
+
 @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block session-box">
         <i class="fa fa-check"></i>
