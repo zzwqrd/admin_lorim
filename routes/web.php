@@ -28,7 +28,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('login/post', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'post']);
 });
 
-Route::prefix('dashboard')->name('dashboard.')->middleware(['admin'])->group(function () {
+Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->group(function () {
+
     Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 
@@ -37,6 +38,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin'])->group(fun
         Route::get('index', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'index'])->middleware('adminRole');
 
     });
+
     // المستخدمين
     Route::prefix('user')->middleware('adminRole')->group(function () {
         Route::get('index', [\App\Http\Controllers\Dashboard\UserController::class, 'index']);
