@@ -30,6 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->group(function () {
 
+
     Route::get('', [\App\Http\Controllers\Dashboard\HomeController::class, 'index'])->name('home');
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 

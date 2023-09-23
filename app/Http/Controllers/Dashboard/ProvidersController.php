@@ -19,6 +19,7 @@ class ProvidersController extends Controller
     {
         $data = Providers::orderBy('id', 'desc')->get();
 
+
         return view('dashboard.providers.index', compact('data'));
     }
 
@@ -39,42 +40,39 @@ class ProvidersController extends Controller
     {
         // dd(request()->all());
 
+
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title_ar' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
             'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
-            'description' => 'required|string|max:255',
+            'description_ar' => 'required|string|max:255',
+            'description_en' => 'required|string|max:255',
             // 'rate' => 'required|integer|max:20',
-            // 'status' => 'required|integer|max:5',
-            'lat' => 'required|integer',
-            'lng' => 'required|integer',
             'section' => 'required|integer|exists:sections,id',
             'subsection' => 'required|integer|exists:sub_sections,id',
-        ]);
+        ], [
+                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
+                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
+                'description_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
+                'description_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
+                'image.required' => 'يجب ادخال الصوره',
+                'section.required' => 'يجب أختيار القسم',
+                'subsection.required' => 'يجب أختيار القسم الفرعي',
+            ]);
 
 
 
-        $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
 
 
 
-        $photoUrl = url('uploads/providers/' . $imageName);
 
-        if (!$photoUrl) {
-            return response()->json([
-                'status' => false,
-                'message' => 'حدث شئ ما خطأ لم يتم رفع الصورة',
-            ], 200);
-        }
-
-
-
-        $inputs['image'] = $photoUrl;
-        $inputs['title'] = $request->title;
+        $inputs['image'] = uploadFile($request->image, 'providers');
+        $inputs['title_ar'] = $request->title_ar;
+        $inputs['title_en'] = $request->title_en;
         $inputs['section_id'] = $request->section;
         $inputs['sub_section_id'] = $request->subsection;
-        $inputs['lat'] = $request->lat;
-        $inputs['lng'] = $request->lng;
-        $inputs['description'] = $request->description;
+        $inputs['description_ar'] = $request->description_ar;
+        $inputs['description_en'] = $request->description_en;
 
 
         $create = Providers::create($inputs);

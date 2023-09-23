@@ -11,6 +11,7 @@ use Validator;
 
 class SectionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -57,6 +58,7 @@ class SectionController extends Controller
         if (!$create) {
             return back()->with('error', trans('response.failed'));
         }
+
         return back()->with('success', trans('response.added'));
     }
 

@@ -28,15 +28,15 @@ class Sections extends Model
         return isset($image) ? assetsUpload() . 'sections' . $image : '';
     }
 
-    public function sections()
-    {
-        return $this->belongsTo(Sections::all());
-    }
+// public function sections()
+// {
+//     return $this->belongsTo(Sections::all());
+// }
 
-    public function subsection()
-    {
-        return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
-    }
+// public function subsection()
+// {
+//     return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
+// }
 
 
 }

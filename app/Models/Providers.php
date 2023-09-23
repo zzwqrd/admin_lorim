@@ -14,11 +14,11 @@ class Providers extends Model
 
 
     protected $fillable = [
-        'title',
+        'title_ar',
+        'title_en',
         'image',
-        'description',
-        'lat',
-        'lng',
+        'description_ar',
+        'description_en',
         'section_id',
         'sub_section_id',
     ];
@@ -28,17 +28,22 @@ class Providers extends Model
         'updated_at',
     ];
 
+    public function getImageAttribute($image)
+    {
+        return isset($image) ? assetsUpload() . 'providers' . $image : '';
+    }
+
     public function section()
     {
         return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
     public function subsection()
     {
-        return $this->hasMany(SubSections::class, 'section_id', 'id');
+        return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
     }
 
-    public function providers()
-    {
-        return $this->hasMany(Providers::class, 'sub_section_id', 'id');
-    }
+// public function providers()
+// {
+//     return $this->hasMany(Providers::class, 'sub_section_id', 'id');
+// }
 }

@@ -35,22 +35,24 @@ class SubSectionController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make(
-            request()->all(),
-            [
-                'title' => 'required|string|min:3',
-                'section' => 'required|integer|exists:sections,id',
 
-            ]
-        )->validate();
 
-        $data = SubSections::create([
+        $request->validate([
+            'title_ar' => 'required|string|max:255',
+            'title_en' => 'required|string|max:255',
+            'section' => 'required|integer|exists:sections,id',
+        ], [
+                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
+                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
+                'section.required' => 'يجب أختيار القسم',
+            ]);
 
-            'title' => request()->title,
+        $inputs['title_ar'] = $request->title_ar;
+        $inputs['title_en'] = $request->title_en;
+        $inputs['section_id'] = $request->section;
 
-            'section_id' => request()->section,
+        $data = SubSections::create($inputs);
 
-        ]);
         if (!$data) {
             return back()->with('error', trans('response.failed'));
         }

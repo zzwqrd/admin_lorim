@@ -49,14 +49,14 @@
                                     @if (count($data) > 0 && !empty($data))
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td>{{ $item->title }}</td>
+                                                <td>{{ $item[lang('title')] }}</td>
                                                 <td>{{ $item->description }}</td>
                                                 <td>
                                                     <img src="{{ config('provider_storage') . $item->image }}"
                                                         width="200" height="100" alt="">
                                                 </td>
-                                                <td>{{ $item->section->title }}</td>
-                                                <td>{{ $item->subsection->title }}</td>
+                                                <td>{{ $item->section[lang('title')] }}</td>
+                                                <td>{{ $item->subsection[lang('title')] }}</td>
                                                 <td><span
                                                         class="badge badge-pill badge-success ml-1 mr-1">{{ $item->rate }}</span>
                                                 </td>

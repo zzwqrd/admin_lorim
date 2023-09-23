@@ -49,12 +49,12 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="title">الإسم </label>
-                                <input type="text" class="form-control" name="title" id="title"
-                                    placeholder="الإسم " value="{{ old('title') }}" autocomplete="off">
-                                @if ($errors->has('title'))
+                                <label for="title_ar">الإسم </label>
+                                <input type="text" class="form-control" name="title_ar" id="title_ar"
+                                    placeholder="الإسم " value="{{ old('title_ar') }}" autocomplete="off">
+                                @if ($errors->has('title_ar'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->has('title') }}</strong>
+                                        <strong>{{ $errors->first('title_ar') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -65,22 +65,33 @@
                                     placeholder="الإسم الإنجليزي" value="{{ old('title_en') }}" autocomplete="off">
                                 @if ($errors->has('title_en'))
                                     <span class="text-danger" role="alert">
-                                        <strong>هذا الحقل مطلوب و يجب أن يكون باللغة الإنجليزية</strong>
+                                        <strong>{{ $errors->first('title_en') }}</strong>
                                     </span>
                                 @endif
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="description">description </label>
-                                <input type="text" class="form-control" name="description" id="description"
-                                    placeholder="description " value="{{ old('description') }}" autocomplete="off">
-                                @if ($errors->has('description'))
+                                <label for="description_ar">المقال بلغة العربيه </label>
+                                <input type="text" class="form-control" name="description_ar" id="description_ar"
+                                    placeholder="description_ar " value="{{ old('description_ar') }}" autocomplete="off">
+                                @if ($errors->has('description_ar'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->has('description') }}</strong>
+                                        <strong>{{ $errors->first('description_ar') }}</strong>
                                     </span>
                                 @endif
                             </div>
 
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="description_en">المقال بلغة الانجليزية </label>
+                                <input type="text" class="form-control" name="description_en" id="description_en"
+                                    placeholder="description_en " value="{{ old('description_en') }}" autocomplete="off">
+                                @if ($errors->has('description_en'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('description_en') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            {{--
                             <div class="col-md-6 form-group mb-3">
                                 <label for="rate">rate </label>
                                 <input type="number" class="form-control" name="rate" id="rate" placeholder="rate "
@@ -90,9 +101,9 @@
                                         <strong>{{ $errors->has('rate') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-6 form-group mb-3">
+                            {{-- <div class="col-md-6 form-group mb-3">
                                 <label for="status">status </label>
                                 <input type="number" class="form-control" name="status" id="status"
                                     placeholder="status " value="{{ old('status') }}" autocomplete="off">
@@ -101,9 +112,9 @@
                                         <strong>{{ $errors->has('status') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
-                            <div class="col-md-6 form-group mb-3">
+                            {{-- <div class="col-md-6 form-group mb-3">
                                 <label for="lat">lat </label>
                                 <input type="number" class="form-control" name="lat" id="lat" placeholder="lat "
                                     value="{{ old('lat') }}" autocomplete="off">
@@ -123,7 +134,7 @@
                                         <strong>{{ $errors->has('lng') }}</strong>
                                     </span>
                                 @endif
-                            </div>
+                            </div> --}}
 
 
                             <div class="col">
@@ -133,9 +144,14 @@
                                     <!--placeholder-->
                                     <option value="" selected disabled>حدد القسم</option>
                                     @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}"> {{ $section->title }}</option>
+                                        <option value="{{ $section->id }}"> {{ $section[lang('title')] }}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('section'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('section') }} </strong>
+                                    </span>
+                                @endif
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
@@ -186,7 +202,8 @@
                                 $.each(data.data, function(index, value) {
                                     // console.log(data.data);
                                     $('#subsection').append("<option value=" + value
-                                        .id + ">" + value.title + "</option>");
+                                        .id + ">" + value.title_ar +
+                                        "</option>");
                                 });
                             }
                         }

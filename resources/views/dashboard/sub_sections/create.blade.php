@@ -49,12 +49,12 @@
                             </div> --}}
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="title">الإسم </label>
-                                <input type="text" class="form-control" name="title" id="title"
-                                    placeholder="الإسم " value="{{ old('title') }}" autocomplete="off">
-                                @if ($errors->has('title'))
+                                <label for="title_ar">الإسم </label>
+                                <input type="text" class="form-control" name="title_ar" id="title_ar"
+                                    placeholder="الإسم " value="{{ old('title_ar') }}" autocomplete="off">
+                                @if ($errors->has('title_ar'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->has('title') }}</strong>
+                                        <strong>{{ $errors->first('title_ar') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -66,7 +66,7 @@
                                     placeholder="الإسم الإنجليزي" value="{{ old('title_en') }}" autocomplete="off">
                                 @if ($errors->has('title_en'))
                                     <span class="text-danger" role="alert">
-                                        <strong>هذا الحقل مطلوب و يجب أن يكون باللغة الإنجليزية</strong>
+                                        <strong>{{ $errors->first('title_en') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -75,7 +75,7 @@
                                 <select class="form-control attribute" name="section" id="section">
                                     <option selected disabled>اختر القسم </option>
                                     @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}">{{ $section->title }}</option>
+                                        <option value="{{ $section->id }}">{{ $section[lang('title')] }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('section'))

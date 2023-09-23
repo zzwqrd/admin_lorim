@@ -47,6 +47,7 @@
                                             <tr>
                                                 <td>{{ $item->title_ar }}</td>
                                                 <td>{{ $item->title_en }}</td>
+                                                {{-- <td>{{ $item[lang('title')] }}</td> --}}
                                                 <td>
                                                     <img src="{{ $item->image }}" width="200" height="100"
                                                         alt="">

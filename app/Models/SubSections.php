@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SubSections extends Model
 {
     protected $table = 'sub_sections';
-    protected $fillable = ['title', 'section_id',];
+    protected $fillable = [
+        'title_ar',
+        'title_en',
+        'section_id',
+    ];
     protected $hidden = [
         'created_at',
         'updated_at',
