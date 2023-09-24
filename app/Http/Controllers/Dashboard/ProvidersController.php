@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Providers\CreateRequest;
 use App\Models\Providers;
 use App\Models\Sections;
 use App\Models\SubSections;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use Exception;
 use Validator;
+use Session;
 
 class ProvidersController extends Controller
 {
@@ -17,7 +21,8 @@ class ProvidersController extends Controller
      */
     public function index()
     {
-        $data = Providers::orderBy('id', 'desc')->get();
+        $data = Providers::orderBy('id', 'desc')->latest()->get();
+        // $data = Providers::where('sub_section_id', 1)->latest()->get();
 
 
         return view('dashboard.providers.index', compact('data'));
@@ -36,52 +41,41 @@ class ProvidersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request, Sections $sections, )
     {
-        // dd(request()->all());
 
 
-        $request->validate([
-            'title_ar' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
-            'description_ar' => 'required|string|max:255',
-            'description_en' => 'required|string|max:255',
-            // 'rate' => 'required|integer|max:20',
-            'section' => 'required|integer|exists:sections,id',
-            'subsection' => 'required|integer|exists:sub_sections,id',
-        ], [
-                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
-                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
-                'description_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
-                'description_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
-                'image.required' => 'يجب ادخال الصوره',
-                'section.required' => 'يجب أختيار القسم',
-                'subsection.required' => 'يجب أختيار القسم الفرعي',
-            ]);
+        // DB::beginTransaction();
+        try {
 
 
+            $validated = $request->validated();
+
+            // $validated['image'] = uploadFile($request->image, 'providers');
+
+            $validated['section_id'] = $request->section;
+
+            $validated['sub_section_id'] = $request->subsection;
 
 
+            Providers::create($validated);
 
 
+            return back()->with('success', trans('response.added'));
 
-        $inputs['image'] = uploadFile($request->image, 'providers');
-        $inputs['title_ar'] = $request->title_ar;
-        $inputs['title_en'] = $request->title_en;
-        $inputs['section_id'] = $request->section;
-        $inputs['sub_section_id'] = $request->subsection;
-        $inputs['description_ar'] = $request->description_ar;
-        $inputs['description_en'] = $request->description_en;
+        } catch (Exception $e) {
 
+            log_error();
 
-        $create = Providers::create($inputs);
+            DB::rollBack();
 
-
-        if (!$create) {
             return back()->with('error', trans('response.failed'));
         }
-        return back()->with('success', trans('response.added'));
+
+
+
+
+
     }
 
     /**
@@ -90,15 +84,8 @@ class ProvidersController extends Controller
     public function show($id)
     {
 
-        Validator::make(
-            [
-                'id' => $id,
-            ],
-            [
-                'id' => 'required|integer|exists:sub_sections,id',
-            ]
-        )->validate();
         $sub_section = SubSections::where('section_id', $id)->get();
+
         return response()->json(['status' => 1, 'data' => $sub_section]);
     }
 

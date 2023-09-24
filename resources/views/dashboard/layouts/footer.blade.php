@@ -16,10 +16,6 @@
 
 
 
-
-
-
-
 <script src="{{ asset('assets') }}/js/select2-4.1.0.min.js"></script>
 <script src="{{ asset('assets') }}/js/script.js"></script>
 

@@ -50,3 +50,25 @@ function lang($text = null)
 
     return $data;
 }
+
+
+
+if (!function_exists('log_error')) {
+    function log_error($exception = null)
+    {
+        $trace = debug_backtrace();
+        $class = $trace[1]['class'];
+        $function = $trace[1]['function'];
+        info('there is error at class ===> ' . $class . ' , function ===> ' . $function . ' //// the exception ===========> ', [
+            'message' => $exception->getMessage(),
+            'file' => [
+                'file' => $exception?->getFile(),
+                'line' => $exception?->getLine(),
+            ],
+        ]);
+        return response()->json([
+            'key' => 'fail',
+            'msg' => __('apis.server_error'),
+        ]);
+    }
+}

@@ -45,8 +45,8 @@
                                     @if (count($data) > 0 && !empty($data))
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ $item->section->title }}</td>
+                                                <td>{{ $item[lang('title')] }}</td>
+                                                <td>{{ $item->section[lang('title')] }}</td>
                                                 <td style="text-align: center;">
                                                     <a href="{{ url('dashboard/sub_section/edit/' . $item->id) }}"
                                                         class="text-info mr-2">

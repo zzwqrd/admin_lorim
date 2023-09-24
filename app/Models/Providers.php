@@ -33,6 +33,17 @@ class Providers extends Model
         return isset($image) ? assetsUpload() . 'providers' . $image : '';
     }
 
+    public function setImageAttribute($image)
+    {
+
+        if($image) {
+            // todo: delete image مهمممممممممم
+            return $this->attributes['image'] = uploadFile($image, 'providers');
+
+        }
+
+    }
+
     public function section()
     {
         return $this->belongsTo(Sections::class, 'section_id', 'id');
