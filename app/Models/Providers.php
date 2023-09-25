@@ -37,7 +37,7 @@ class Providers extends Model
     {
 
         if($image) {
-            // todo: delete image مهمممممممممم
+
             return $this->attributes['image'] = uploadFile($image, 'providers');
 
         }

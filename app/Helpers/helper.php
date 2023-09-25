@@ -16,6 +16,12 @@ function uploadFile($fileAttr, $path = "")
     return $imgName;
 }
 
+function deleteFile($file, $path = "")
+{
+
+    File::delete('assets/uploads/' . $path . '/' . $file);
+}
+
 
 
 //   start lang fun

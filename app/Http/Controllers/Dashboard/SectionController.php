@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Sections\SectionsRequest;
 use App\Models\Sections;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Http\UploadedFile;
 use Validator;
-
+use Illuminate\Support\Facades\DB;
+use Exception;
 class SectionController extends Controller
 {
 
@@ -33,33 +35,28 @@ class SectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SectionsRequest $request)
     {
-        // dd(request()->all());
-        $request->validate([
-            'title_ar' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
-        ], [
-                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
-                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
-                'image.required' => 'يجب ادخال الصوره',
-            ]);
 
 
+        try {
 
-        $inputs['image'] = uploadFile($request->image, 'sections');
-        $inputs['title_ar'] = $request->title_ar;
-        $inputs['title_en'] = $request->title_en;
+            $validated = $request->validated();
+
+            Sections::create($validated);
+
+            return back()->with('success', trans('response.added'));
 
 
-        $create = Sections::create($inputs);
+        } catch (Exception $e) {
 
-        if (!$create) {
+            log_error();
+
+            DB::rollBack();
+
             return back()->with('error', trans('response.failed'));
         }
 
-        return back()->with('success', trans('response.added'));
     }
 
     /**

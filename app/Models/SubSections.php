@@ -20,7 +20,7 @@ class SubSections extends Model
 
     public function section()
     {
-        return $this->belongsToMany(Sections::class, 'section_id', 'id');
+        return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
 
 // public function providers()

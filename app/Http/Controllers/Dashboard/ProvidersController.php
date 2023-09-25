@@ -51,8 +51,6 @@ class ProvidersController extends Controller
 
             $validated = $request->validated();
 
-            // $validated['image'] = uploadFile($request->image, 'providers');
-
             $validated['section_id'] = $request->section;
 
             $validated['sub_section_id'] = $request->subsection;

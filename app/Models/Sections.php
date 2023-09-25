@@ -28,6 +28,19 @@ class Sections extends Model
         return isset($image) ? assetsUpload() . 'sections' . $image : '';
     }
 
+
+
+    public function setImageAttribute($image)
+    {
+
+        if($image) {
+
+            return $this->attributes['image'] = uploadFile($image, 'sections');
+
+        }
+
+    }
+
 // public function sections()
 // {
 //     return $this->belongsTo(Sections::all());

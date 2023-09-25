@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\SubSections\SubSectionsRequest;
 use App\Models\Sections;
 use App\Models\SubSections;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Exception;
 use Validator;
 
 class SubSectionController extends Controller
@@ -33,30 +35,28 @@ class SubSectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubSectionsRequest $request)
     {
 
+        try {
 
-        $request->validate([
-            'title_ar' => 'required|string|max:255',
-            'title_en' => 'required|string|max:255',
-            'section' => 'required|integer|exists:sections,id',
-        ], [
-                'title_ar.required' => 'يجب ادخال الاسم بالغه العربيه',
-                'title_en.required' => 'يجب ادخال الاسم بالغه الانجلزيه',
-                'section.required' => 'يجب أختيار القسم',
-            ]);
+            $validated = $request->validated();
 
-        $inputs['title_ar'] = $request->title_ar;
-        $inputs['title_en'] = $request->title_en;
-        $inputs['section_id'] = $request->section;
+            $validated['section_id'] = $request->section;
 
-        $data = SubSections::create($inputs);
+            SubSections::create($validated);
 
-        if (!$data) {
+            return back()->with('success', trans('response.added'));
+
+        } catch (Exception $e) {
+
+            log_error();
+
+            DB::rollBack();
+
             return back()->with('error', trans('response.failed'));
         }
-        return back()->with('success', trans('response.added'));
+
     }
 
     /**
