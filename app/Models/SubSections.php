@@ -23,8 +23,11 @@ class SubSections extends Model
         return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
 
+
+
+
 // public function providers()
 // {
-//     return $this->belongsToMany(Providers::class, 'sub_section_id', 'id');
+//     return $this->belongsToMany(Providers::class);
 // }
 }

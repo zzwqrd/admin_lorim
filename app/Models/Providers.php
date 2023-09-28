@@ -13,15 +13,20 @@ class Providers extends Model
     protected $table = 'providers';
 
 
-    protected $fillable = [
-        'title_ar',
-        'title_en',
-        'image',
-        'description_ar',
-        'description_en',
-        'section_id',
-        'sub_section_id',
+    // protected $fillable = [
+    //     'title_ar',
+    //     'title_en',
+    //     'image',
+    //     'description_ar',
+    //     'description_en',
+    //     'section_id',
+    // ];
+
+    protected $guarded = [
+        'created_at',
+        'updated_at',
     ];
+
 
     protected $hidden = [
         'created_at',
@@ -48,10 +53,17 @@ class Providers extends Model
     {
         return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
-    public function subsection()
+
+    public function providsub()
     {
-        return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
+        return $this->belongsToMany(SubSections::class, 'provider_sub_section');
     }
+
+
+    // public function subsection()
+    // {
+    //     return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
+    // }
 
 // public function providers()
 // {

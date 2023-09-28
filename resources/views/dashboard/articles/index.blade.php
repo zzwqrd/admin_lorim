@@ -28,19 +28,15 @@
                 </div>
                 @include('dashboard.layouts.message')
                 <div class="card-body">
+
                     @if (count($data) > 0)
                         <div class="table-responsive">
                             <table id="alternative_pagination_table" class="display table table-striped table-bordered"
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>الاسم </th>
-                                        <th>تفاصيل</th>
-                                        <th> الصورة </th>
-                                        <th> القسم </th>
-                                        <th> القسم الفرعي</th>
-                                        <th>التقييم</th>
-                                        {{-- <th> الحالة </th> --}}
+                                        <th> الاسم با اللغه العربيه</th>
+                                        <th> الاسم با اللغه الانجليزيه</th>
                                         <th>التحكم </th>
 
                                     </tr>
@@ -49,43 +45,20 @@
                                     @if (count($data) > 0 && !empty($data))
                                         @foreach ($data as $item)
                                             <tr>
-                                                <td>{{ $item[lang('title')] }}</td>
-                                                <td>{{ $item[lang('description')] }}</td>
+                                                <td>{{ $item->title }}</td>
                                                 <td>
-                                                    <img src="{{ config('provider_storage') . $item->image }}"
-                                                        width="200" height="100" alt="">
-                                                </td>
-                                                <td>{{ $item->section[lang('title')] }}</td>
-                                                <td>
-                                                    @foreach ($item->providsub as $i)
-                                                        <span class="badge badge-success">{{ $i[lang('title')] }}</span>
+                                                    @foreach ($item->tag as $t)
+                                                        <span
+                                                            class=" badge badge-success label-many px-2">{{ $t->name }}</span>
                                                     @endforeach
                                                 </td>
-                                                <td><span
-                                                        class="badge badge-pill badge-success ml-1 mr-1">{{ $item->rate }}</span>
-                                                </td>
-                                                {{-- @if ($item->status == '1')
-                                                    <td style="text-align: center;"><a
-                                                            href="{{ url('dashboard/user/suspend/' . $item->id) }}"
-                                                            class="badge badge-success status-btn"
-                                                            style="width:80px;height: 25px;padding:auto;margin:auto;
-                                                    padding-top: 7px; font-size: small">نشط</a>
-                                                    </td>
-                                                @else
-                                                    <td style="text-align: center;"><a
-                                                            href="{{ url('dashboard/user/activate/' . $item->id) }}"
-                                                            class="badge badge-danger status-btn"
-                                                            style="width:80px;height: 25px;padding:auto;margin:auto;
-                                                    padding-top: 7px; font-size: small">غير
-                                                            نشط</a></td>
-                                                @endif --}}
 
                                                 <td style="text-align: center;">
-                                                    <a href="{{ url('dashboard/providers/edit/' . $item->id) }}"
+                                                    <a href="{{ url('dashboard/articles/edit/' . $item->id) }}"
                                                         class="text-info mr-2">
                                                         <i class="nav-icon i-Eye font-weight-bold "></i>
                                                     </a>
-                                                    <a href="{{ url('dashboard/providers/destroy/' . $item->id) }}"
+                                                    <a href="{{ url('dashboard/articles/destroy/' . $item->id) }}"
                                                         class="text-danger mr-2">
                                                         <i class="nav-icon i-Close-Window font-weight-bold delete-btn"></i>
                                                     </a>
@@ -101,7 +74,6 @@
                     @else
                         <p class="alert alert-danger text-danger"> لا يوجد بيانات حاليا</p>
                     @endif
-
                 </div>
             </div>
         </div>
@@ -109,8 +81,6 @@
 
     </div>
     <!-- end of row -->
-
-
 @endsection
 <!-- ============ Body content End ============= -->
 @section('js')

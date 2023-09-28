@@ -61,4 +61,18 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
         Route::post('update', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'update']);
         Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroy']);
     });
+
+    Route::prefix('articles')->middleware('adminRole')->group(function () {
+
+        Route::get('index', [\App\Http\Controllers\Dashboard\ArticlesController::class, 'index']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\ArticlesController::class, 'create']);
+        Route::post('store', [\App\Http\Controllers\Dashboard\ArticlesController::class, 'store']);
+        Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\ArticlesController::class, 'destroy']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\ArticlesController::class, 'edit']);
+
+        // Route::resource('articles', [\App\Http\Controllers\Dashboard\ArticlesController::class]);
+
+    });
+
+
 });

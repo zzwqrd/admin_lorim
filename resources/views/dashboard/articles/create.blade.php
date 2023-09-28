@@ -25,104 +25,64 @@
                 @include('dashboard.layouts.message')
 
                 <div class="card-body">
-                    <form id="change-pwd" action="{{ url('dashboard/providers/store') }}" method="post"
+                    <form id="change-pwd" action="{{ url('dashboard/articles/store') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="text-center">الصورة</h3>
-                                <div class="avatar-upload">
-                                    <div class="avatar-edit">
-                                        <input type='file' name="image" id="imageUpload" />
-                                        <label for="imageUpload"></label>
-                                    </div>
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview">
-                                        </div>
-                                    </div>
-                                </div>
-                                @if ($errors->has('image'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('image') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="title_ar">الإسم </label>
-                                <input type="text" class="form-control" name="title_ar" id="title_ar"
-                                    placeholder="الإسم " value="{{ old('title_ar') }}" autocomplete="off">
-                                @if ($errors->has('title_ar'))
+                                <label for="title">الإسم </label>
+                                <input type="text" class="form-control" name="title" id="title"
+                                    placeholder="الإسم " value="{{ old('title') }}" autocomplete="off">
+                                @if ($errors->has('title'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('title_ar') }}</strong>
+                                        <strong>{{ $errors->first('title') }}</strong>
                                     </span>
                                 @endif
                             </div>
+
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="title_en">الإسم الانجليزي</label>
-                                <input type="text" class="form-control" name="title_en" id="title_en"
-                                    placeholder="الإسم الإنجليزي" value="{{ old('title_en') }}" autocomplete="off">
-                                @if ($errors->has('title_en'))
+                                <label for="article_text">المقال بلغة العربيه </label>
+
+                                <textarea type="text" class="form-control" name="article_text" id="article_text" placeholder="article_text "
+                                    value="{{ old('article_text') }}" autocomplete="off"></textarea>
+                                @if ($errors->has('article_text'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('title_en') }}</strong>
+                                        <strong>{{ $errors->first('article_text') }}</strong>
                                     </span>
                                 @endif
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="description_ar">المقال بلغة العربيه </label>
-
-                                <textarea type="text" class="form-control" name="description_ar" id="description_ar" placeholder="description_ar "
-                                    value="{{ old('description_ar') }}" autocomplete="off"></textarea>
-                                @if ($errors->has('description_ar'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('description_ar') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="description_en">المقال بلغة الانجليزية </label>
-                                <textarea type="text" class="form-control" name="description_en" id="description_en" placeholder="description_en "
-                                    value="{{ old('description_en') }}" autocomplete="off"></textarea>
-                                @if ($errors->has('description_en'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('description_en') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="inputName" class="control-label">القسم</label>
-                                <select name="section" class="form-control SlectBox" onclick="console.log($(this).val())"
-                                    onchange="console.log('change is firing')">
+
+                                <select name="tag[]" class="form-control  select2-select"
+                                    onclick="console.log($(this).val())" onchange="console.log('change is firing')"
+                                    multiple>
+
                                     <!--placeholder-->
-                                    <option value="" selected disabled>حدد القسم</option>
-                                    @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}"> {{ $section[lang('title')] }}</option>
+                                    <option value="" disabled>حدد القسم</option>
+
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}"> {{ $tag->name }}</option>
                                     @endforeach
+
                                 </select>
+
                                 @if ($errors->has('section'))
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $errors->first('section') }} </strong>
                                     </span>
                                 @endif
+
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="sub_section" class="control-label"> القسم الفرعي</label>
-                                <select data-placeholder="اختر القسم أولا " class="form-control select2-select"
-                                    name="providsub[]" id="sub_section" multiple>
-                                    {{-- <option selected disabled> </option> --}}
 
-                                </select>
-                                @if ($errors->has('sub_section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('sub_section') }} </strong>
-                                    </span>
-                                @endif
-                            </div>
+
+
                             {{-- <div class="col-12 pt-3">
                                 <textarea name="description" class="editor with-file-explorer">{{ old('description') }}</textarea>
                             </div> --}}
@@ -157,12 +117,12 @@
                         dataType: "json",
                         success: function(data) {
                             if (data.status == 1) {
-                                $('#sub_section option').remove();
-                                $('#sub_section').append(
-                                    "<option  disabled>اختر التصنيف</option>");
+                                $('#subsection option').remove();
+                                $('#subsection').append(
+                                    "<option selected disabled>اختر التصنيف</option>");
                                 $.each(data.data, function(index, value) {
                                     // console.log(data.data);
-                                    $('#sub_section').append("<option value=" + value
+                                    $('#subsection').append("<option value=" + value
                                         .id + ">" + value.title_ar +
                                         "</option>");
                                 });

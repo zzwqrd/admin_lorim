@@ -29,7 +29,8 @@ class CreateRequest extends FormRequest
             'description_ar' => 'required|string|max:255',
             'description_en' => 'required|string|max:255',
             'section' => 'required|integer|exists:sections,id',
-            'subsection' => 'required|integer|exists:sub_sections,id',
+            'providsub.*' => 'exists:sub_sections,id',
+
 
         ];
     }

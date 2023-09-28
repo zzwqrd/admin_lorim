@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('providers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('image');
             $table->string('title_ar');
             $table->string('title_en');
@@ -21,8 +21,6 @@ return new class extends Migration {
             $table->enum('status', ['0', '1'])->default('1');
             $table->unsignedInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
-            $table->unsignedInteger('sub_section_id');
-            $table->foreign('sub_section_id')->references('id')->on('sub_sections')->onDelete('cascade');
             $table->timestamps();
         });
     }

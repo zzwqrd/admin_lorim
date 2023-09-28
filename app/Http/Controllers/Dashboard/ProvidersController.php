@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Providers\CreateRequest;
+use App\Http\Requests\ProvidSubSection\ProvidSubSectionRequest;
 use App\Models\Providers;
 use App\Models\Sections;
 use App\Models\SubSections;
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\DB;
 use Exception;
-use Validator;
-use Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProvidersController extends Controller
 {
@@ -23,7 +21,6 @@ class ProvidersController extends Controller
     {
         $data = Providers::orderBy('id', 'desc')->latest()->get();
         // $data = Providers::where('sub_section_id', 1)->latest()->get();
-
 
         return view('dashboard.providers.index', compact('data'));
     }
@@ -41,38 +38,36 @@ class ProvidersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRequest $request, Sections $sections, )
+    public function store(CreateRequest $request )
     {
+
 
 
         // DB::beginTransaction();
         try {
 
-
-            $validated = $request->validated();
-
+            $validated =  $request->validated();
+            // dd($validated);
             $validated['section_id'] = $request->section;
 
-            $validated['sub_section_id'] = $request->subsection;
 
+            $provider =  Providers::create($validated);
 
-            Providers::create($validated);
+            $provider->providsub()->sync((array) $request->input('providsub'));
+
 
 
             return back()->with('success', trans('response.added'));
 
+
         } catch (Exception $e) {
 
-            log_error();
+            log_error($e);
 
             DB::rollBack();
 
             return back()->with('error', trans('response.failed'));
         }
-
-
-
-
 
     }
 
@@ -82,9 +77,9 @@ class ProvidersController extends Controller
     public function show($id)
     {
 
-        $sub_section = SubSections::where('section_id', $id)->get();
+        $providsub = SubSections::where('section_id', $id)->get();
 
-        return response()->json(['status' => 1, 'data' => $sub_section]);
+        return response()->json(['status' => 1, 'data' => $providsub]);
     }
 
     /**
