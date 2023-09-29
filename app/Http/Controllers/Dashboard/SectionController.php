@@ -91,32 +91,9 @@ class SectionController extends Controller
         ]);
         $sections = Sections::findOrFail($request->id);
 
-        if ($request->hasFile('image')) {
-            $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
-            $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
-            $photoUrl = url('uploads/sections/' . $imageName);
-            if (!$photoUrl) {
-                return response()->json(['message' => trans('response.failed')], 444);
-            }
-            if ($sections->image != null && file_exists(public_path('uploads/sections/' . $sections->image))) {
-                unlink(public_path('uploads/sections/' . $sections->image));
-            }
-            $inputs['image'] = $photoUrl;
-        }
-
-        // if ($request->hasFile('image')) {
-        //     $imageName = md5(time()) . '.' . request()->file('image')->getClientOriginalExtension();
-        //     $imageMove = request()->file('image')->move(public_path('uploads/sections'), $imageName);
-        //     if (!$imageMove) {
-        //         return response()->json(['message' => trans('response.failed')], 444);
-        //     }
-        //     if ($sections->image != null && file_exists(public_path('uploads/sections/' . $sections->image))) {
-        //         unlink(public_path('uploads/sections/' . $sections->image));
-        //     }
-        //     $inputs['image'] = $imageName;
-        // }
-
-        $inputs['title'] = $request->title;
+        $inputs['title_ar'] = $request->title_ar;
+        $inputs['title_en'] = $request->title_en;
+        $inputs['image'] = $request->image;
 
         $update = $sections->update($inputs);
         if (!$update) {

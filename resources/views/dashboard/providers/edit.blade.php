@@ -124,7 +124,9 @@
                                     name="providsub[]" id="sub_section" multiple required>
 
                                     @foreach ($data->providsub as $p)
-                                        <option value="{{ $p->id }}" selected>{{ $p[lang('title')] }}</option>
+                                        <option value="{{ $p->id }}"
+                                            @if ($data->providsub->containsStrict('id', $p->id)) selected="selected" @endif>
+                                            {{ $p[lang('title')] }}</option>
                                     @endforeach
 
                                     {{-- @foreach ($data->providsub as $p)

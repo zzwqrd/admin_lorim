@@ -86,30 +86,33 @@ class SubSectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update()
+    public function update(SubSectionsRequest $request)
     {
-        Validator::make(
-            request()->all(),
-            [
-                'id' => 'required|integer|exists:sub_sections,id',
-                'title' => 'required|string|min:3',
-                'section' => 'required|integer|exists:sections,id',
-            ],
 
-        )->validate();
+        try {
+
+
+        $validated = $request->validated(['id' => 'required|integer|exists:sub_sections,id',]);
 
         $data = SubSections::findOrFail(request()->id);
 
+        $validated['title_ar'] = $request->title_ar;
+        $validated['title_en'] = $request->title_en;
+        $validated['section_id'] = $request->section;
 
-        $data->title = (request()->title == null) ? $data->title : request()->title;
-        $data->section_id = (request()->section == null) ? $data->section_id : request()->section;
+        $update = $data->update($validated);
 
-        $update = $data->save();
+        return back()->with('success', trans('response.updated'));
 
-        if (!$update) {
+        } catch (Exception $e) {
+
+            log_error();
+
+            DB::rollBack();
+
             return back()->with('error', trans('response.failed'));
         }
-        return back()->with('success', trans('response.updated'));
+
 
     }
 

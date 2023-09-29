@@ -20,7 +20,6 @@ class ProvidersController extends Controller
     public function index()
     {
         $data = Providers::orderBy('id', 'desc')->latest()->get();
-        // $data = Providers::where('sub_section_id', 1)->latest()->get();
 
         return view('dashboard.providers.index', compact('data'));
     }

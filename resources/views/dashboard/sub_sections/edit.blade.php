@@ -52,11 +52,11 @@
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="title">الإسم </label>
-                                <input type="text" class="form-control" name="title" id="title"
-                                    placeholder="الإسم " value="{{ $data->title }}" autocomplete="off">
-                                @if ($errors->has('title'))
+                                <input type="text" class="form-control" name="title_ar" id="title_ar"
+                                    placeholder="الإسم " value="{{ $data->title_ar }}" autocomplete="off">
+                                @if ($errors->has('title_ar'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('title') }}</strong>
+                                        <strong>{{ $errors->first('title_ar') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -77,7 +77,7 @@
                                     <option selected disabled>اختر القسم </option>
                                     @foreach ($sections as $section)
                                         <option value="{{ $section->id }}"
-                                            @if ($data->section_id == $section->id) selected @endif> {{ $section->title }}
+                                            @if ($data->section_id == $section->id) selected @endif> {{ $section[lang('title')] }}
                                         </option>
                                     @endforeach
                                 </select>
