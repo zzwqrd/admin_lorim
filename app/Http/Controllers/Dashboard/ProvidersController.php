@@ -90,36 +90,27 @@ class ProvidersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(CreateRequest $request)
     {
 
         try {
+            $validated = $request->validated(['id' => 'required|integer|exists:providers,id',]);
 
-           $request->validate([
-            'id' => 'required|integer|exists:providers,id',
-            'title_ar' => 'nullable|string|max:255',
-            'title_en' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:5120',
-            'description_ar' => 'nullable|string|max:255',
-            'description_en' => 'nullable|string|max:255',
-            'section' => 'nullable|integer|exists:sections,id',
-            'providsub.*' => 'exists:sub_sections,id',
-           ]);
 
            $data = Providers::findOrFail($request->id);
 
         //    dd($request->all());
-           $inputs['title_ar'] = $request->title_ar;
-           $inputs['title_en'] = $request->title_en;
-           $inputs['description_ar'] = $request->description_ar;
-           $inputs['description_en'] = $request->description_en;
-           $inputs['description_en'] = $request->description_en;
-           $inputs['image'] = $request->image;
-           $inputs['section_id'] = $request->section;
-           $inputs['providsub'] = $data->providsub()->sync((array)$request->input('providsub'));
+           $validated['title_ar'] = $request->title_ar;
+           $validated['title_en'] = $request->title_en;
+           $validated['description_ar'] = $request->description_ar;
+           $validated['description_en'] = $request->description_en;
+           $validated['description_en'] = $request->description_en;
+           $validated['image'] = $request->image;
+           $validated['section_id'] = $request->section;
+           $validated['providsub'] = $data->providsub()->sync((array)$request->input('providsub'));
 
 
-          $data->update($inputs);
+          $data->update($validated);
 
 
            return back()->with('success', trans('response.updated'));
