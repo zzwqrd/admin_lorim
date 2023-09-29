@@ -103,7 +103,9 @@ class SubSectionController extends Controller
 
         $data->title = (request()->title == null) ? $data->title : request()->title;
         $data->section_id = (request()->section == null) ? $data->section_id : request()->section;
+
         $update = $data->save();
+
         if (!$update) {
             return back()->with('error', trans('response.failed'));
         }

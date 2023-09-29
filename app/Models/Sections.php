@@ -25,7 +25,7 @@ class Sections extends Model
 
     public function getImageAttribute($image)
     {
-        return isset($image) ? assetsUpload() . 'sections' . $image : '';
+        return isset($image) ? assetsUpload() . '/sections/' . $image : '';
     }
 
 
@@ -35,7 +35,7 @@ class Sections extends Model
 
         if($image) {
 
-            return $this->attributes['image'] = uploadFile($image, 'sections');
+            return $this->attributes['image'] = uploadFile($image, '/sections/');
 
         }
 

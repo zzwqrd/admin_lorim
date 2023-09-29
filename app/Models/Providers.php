@@ -35,7 +35,7 @@ class Providers extends Model
 
     public function getImageAttribute($image)
     {
-        return isset($image) ? assetsUpload() . 'providers' . $image : '';
+        return isset($image) ? assetsUpload() . '/providers/' . $image : '';
     }
 
     public function setImageAttribute($image)
@@ -43,7 +43,7 @@ class Providers extends Model
 
         if($image) {
 
-            return $this->attributes['image'] = uploadFile($image, 'providers');
+            return $this->attributes['image'] = uploadFile($image, '/providers/');
 
         }
 
