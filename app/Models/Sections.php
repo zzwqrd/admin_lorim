@@ -11,34 +11,35 @@ class Sections extends Model
 
     protected $table = 'sections';
 
-
     protected $fillable = [
         'image',
         'title_ar',
-        'title_en'
+        'title_en',
     ];
     protected $hidden = [
         'created_at',
         'updated_at',
     ];
 
-
     public function getImageAttribute($image)
     {
         return isset($image) ? assetsUpload() . '/sections/' . $image : '';
     }
 
-
-
     public function setImageAttribute($image)
     {
 
-        if($image) {
+        if ($image) {
 
             return $this->attributes['image'] = uploadFile($image, '/sections/');
 
         }
 
+    }
+
+    public function providers()
+    {
+        return $this->belongsToMany(Providers::class, 'provider_section');
     }
 
 // public function sections()
@@ -50,6 +51,5 @@ class Sections extends Model
 // {
 //     return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
 // }
-
 
 }

@@ -44,12 +44,19 @@ class ProvidersController extends Controller
         try {
 
             $validated = $request->validated();
+
+            // $validated['section_id'] = $request->section;
+
             // dd($validated);
-            $validated['section_id'] = $request->section;
+
 
             $provider = Providers::create($validated);
 
+            $provider->section()->sync((array) $request->input('section'));
+
             $provider->providsub()->sync((array) $request->input('providsub'));
+
+
 
             return back()->with('success', trans('response.added'));
 

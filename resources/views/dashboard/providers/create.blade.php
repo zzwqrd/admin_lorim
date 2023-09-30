@@ -10,7 +10,7 @@
             <h1>الرئيسية</h1>
         </a>
         <ul>
-            <li><a> الأقسام</a></li>
+            <li><a> الشركات</a></li>
         </ul>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <div class="card-title mb-3"> <strong class="text-primary">إضافة قسم</strong></div>
+                    <div class="card-title mb-3"> <strong class="text-primary">إضافة شركة</strong></div>
                 </div>
                 @include('dashboard.layouts.message')
 
@@ -94,11 +94,13 @@
                             </div>
 
                             <div class="col-md-6 form-group mb-3">
-                                <label for="inputName" class="control-label">القسم</label>
-                                <select name="section" class="form-control SlectBox" onclick="console.log($(this).val())"
-                                    onchange="console.log('change is firing')">
+                                <label for="section" class="control-label">القسم</label>
+                                <select name="section[]" data-placeholder="حدد القسم"
+                                    class="form-control sectionTo SlectBox">
+                                    {{-- sectionTo --}}
+                                    {{-- multiple --}}
                                     <!--placeholder-->
-                                    <option value="" selected disabled>حدد القسم</option>
+                                    <option selected disabled>اختر القسم </option>
                                     @foreach ($sections as $section)
                                         <option value="{{ $section->id }}"> {{ $section[lang('title')] }}</option>
                                     @endforeach
@@ -123,6 +125,35 @@
                                     </span>
                                 @endif
                             </div>
+
+
+
+
+
+
+
+                            <div class="card-body">
+                                <div class="input-group control-group  after-add-more">
+                                    <div id="add_new" class="input-group 22 control-group after-add-more"></div>
+
+
+                                    <div class="input-group-btn px-3">
+                                        <button class="btn btn-success add-more" type="button"><i
+                                                class="glyphicon glyphicon-plus"></i>
+                                            إضافة</button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+
                             {{-- <div class="col-12 pt-3">
                                 <textarea name="description" class="editor with-file-explorer">{{ old('description') }}</textarea>
                             </div> --}}
@@ -132,6 +163,25 @@
                         </div>
                     </form>
 
+                    {{-- <h1>دي هنستخدمها علشانن نضيف اكتر من خدمة جوا الليست</h1>
+                    <div class="card-body">
+                        <div class="input-group control-group  after-add-more">
+                            <div id="add_new" class="input-group 22 control-group after-add-more"></div>
+                            <input type="text" name="details['0'][key]" class="form-control custom-input mx-2"
+                                placeholder=" نوع الخدمة ">
+                            <input type="text" name="details['0'][value]" class="form-control custom-input  mx-2"
+                                placeholder="القيمة ">
+
+                            <div class="input-group-btn px-3">
+                                <button class="btn btn-success add-more" type="button"><i
+                                        class="glyphicon glyphicon-plus"></i>
+                                    إضافة</button>
+                            </div>
+
+                        </div>
+
+                    </div> --}}
+
                 </div>
             </div>
         </div>
@@ -140,6 +190,63 @@
 <!-- ============ Body content End ============= -->
 @section('js')
     <script src="{{ asset('assets') }}/js/image.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".add-more").click(function() {
+                let rand = Math.floor(Math.random() * (999999 - 1)) + 1;
+                var html =
+                    '<div class="control-group 22 input-group" style="margin-top:10px;padding: 10px;">\n' +
+                    ' <select class="form-control col-md-6 " name="section[]"\n' +
+                    '          required>\n' +
+                    ' <option selected disabled>اختر القسم </option>\n' +
+                    '               @foreach ($sections as $section)\n' +
+                    '                  <option value="{{ $section->id }}"> {{ $section[lang('title')] }}</option>\n' +
+                    '             @endforeach\n' +
+
+                    ' </select>\n' +
+                    '\n' +
+                    ' <select  data-placeholder="اختر القسم أولا " class="form-control select5-select" \n' +
+                    ' name="providsub[]" id="select' + rand + '" multiple>\n' +
+
+
+                    ' </select>\n' +
+                    '\n' +
+                    '            <div class="input-group-btn px-3">\n' +
+                    '                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> حذف</button>\n' +
+                    '            </div>\n' +
+                    // '            <input type="text" name="details[' + rand +
+                    // '][key]" class="form-control mx-2 custom-input" placeholder="نوع الخدمة">\n' +
+                    // '            <input type="text" name="details[' + rand +
+                    // '][value]" class="form-control mx-2 custom-input" placeholder="القيمة ">\n' +
+                    // '\n' +
+                    // '            <div class="input-group-btn px-3">\n' +
+                    // '                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> حذف</button>\n' +
+                    // '            </div>\n' +
+                    '        </div>';
+                $("#add_new").append(html);
+
+                $(".select5-select").select2();
+
+
+
+            });
+
+
+
+
+            $('body').on('click', '.remove', function() {
+                $(this).closest('.22').remove();
+            });
+
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.sectionTo').select2();
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.select2-select').select2();
@@ -148,7 +255,7 @@
 
     <script>
         $(document).ready(function() {
-            $('select[name="section"]').on('change', function() {
+            $('select[name="section[]"]').on('change', function() {
                 var SectionId = $(this).val();
                 if (SectionId) {
                     $.ajax({
@@ -157,12 +264,13 @@
                         dataType: "json",
                         success: function(data) {
                             if (data.status == 1) {
-                                $('#sub_section option').remove();
-                                $('#sub_section').append(
+                                $('select[name="providsub[]"] option').remove();
+                                $('select[name="providsub[]"]').append(
                                     "<option  disabled>اختر التصنيف</option>");
                                 $.each(data.data, function(index, value) {
                                     // console.log(data.data);
-                                    $('#sub_section').append("<option value=" + value
+                                    $('select[name="providsub[]"]').append(
+                                        "<option value=" + value
                                         .id + ">" + value.title_ar +
                                         "</option>");
                                 });

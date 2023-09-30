@@ -55,7 +55,16 @@
                                                     <img src="{{ config('provider_storage') . $item->image }}"
                                                         width="200" height="100" alt="">
                                                 </td>
-                                                <td>{{ $item->section[lang('title')] }}</td>
+                                                {{-- <td>{{ $item->section[lang('title')] }}</td>
+
+                                                <td> --}}
+                                                <td>
+                                                    @foreach ($item->section as $i)
+                                                        <span class="badge badge-success">{{ $i[lang('title')] }}</span>
+                                                    @endforeach
+                                                </td>
+
+                                                </td>
                                                 <td>
                                                     @foreach ($item->providsub as $i)
                                                         <span class="badge badge-success">{{ $i[lang('title')] }}</span>

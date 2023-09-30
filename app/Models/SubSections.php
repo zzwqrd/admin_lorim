@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SubSections extends Model
@@ -23,11 +22,8 @@ class SubSections extends Model
         return $this->belongsTo(Sections::class, 'section_id', 'id');
     }
 
-
-
-
-// public function providers()
-// {
-//     return $this->belongsToMany(Providers::class);
-// }
+    public function providers()
+    {
+        return $this->belongsToMany(Providers::class, 'provider_sub_section');
+    }
 }
