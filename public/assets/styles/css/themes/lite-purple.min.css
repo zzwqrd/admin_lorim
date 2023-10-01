@@ -25703,9 +25703,9 @@ div.tab-border {
     font-weight: 800
 }
 
-.main-header {
+/* .main-header {
     position: relative
-}
+} */
 
 .main-header .topbar .header-nav {
     display: flex;
