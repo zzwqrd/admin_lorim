@@ -93,94 +93,68 @@
                                 @endif
                             </div>
 
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="section" class="control-label">القسم</label>
-                                <select name="section[]" data-placeholder="حدد القسم"
-                                    class="form-control sectionTo SlectBox">
-                                    {{-- sectionTo --}}
-                                    {{-- multiple --}}
-                                    <!--placeholder-->
-                                    <option selected disabled>اختر القسم </option>
-                                    @foreach ($sections as $section)
-                                        <option value="{{ $section->id }}"> {{ $section[lang('title')] }}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('section') }} </strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="sub_section" class="control-label"> القسم الفرعي</label>
-                                <select data-placeholder="اختر القسم أولا " class="form-control select2-select"
-                                    name="providsub[]" id="sub_section" multiple>
-                                    {{-- <option selected disabled> </option> --}}
-
-                                </select>
-                                @if ($errors->has('sub_section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('sub_section') }} </strong>
-                                    </span>
-                                @endif
-                            </div>
-
-
-
-
-
-
 
                             <div class="card-body">
                                 <div class="input-group control-group  after-add-more">
-                                    <div id="add_new" class="input-group 22 control-group after-add-more"></div>
 
 
-                                    <div class="input-group-btn px-3">
-                                        <button class="btn btn-success add-more" type="button"><i
-                                                class="glyphicon glyphicon-plus"></i>
-                                            إضافة</button>
+
+
+                                </div>
+                                <div id="add_new" class="input-group control-group after-add-more">
+                                    <div class="control-group app_selectd  input-group"
+                                        style="margin-top:10px;padding: 10px;">
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="section" class="control-label">القسم</label>
+                                            <select name="section[]" data-placeholder="حدد القسم"
+                                                class="form-control  SlectBox">
+                                                {{-- sectionTo --}}
+                                                {{-- multiple --}}
+                                                <!--placeholder-->
+                                                <option selected disabled>اختر القسم </option>
+                                                @foreach ($sections as $section)
+                                                    <option value="{{ $section->id }}"> {{ $section[lang('title')] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('section'))
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $errors->first('section') }} </strong>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-md-6 form-group mb-3">
+                                            <label for="sub_section" class="control-label"> القسم الفرعي</label>
+                                            <select data-placeholder="اختر القسم أولا "
+                                                class="form-control subsection select2-select" name="providsub[]"
+                                                id="sub_section" multiple>
+                                                {{-- <option selected disabled> </option> --}}
+
+                                            </select>
+                                            @if ($errors->has('sub_section'))
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $errors->first('sub_section') }} </strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
-
+                                </div>
+                                <div class="input-group-btn px-3">
+                                    <button class="btn btn-success add-more" type="button"><i
+                                            class="glyphicon glyphicon-plus"></i>
+                                        أضافة قسم جديد</button>
                                 </div>
 
                             </div>
 
 
-
-
-
-
-
-
-                            {{-- <div class="col-12 pt-3">
-                                <textarea name="description" class="editor with-file-explorer">{{ old('description') }}</textarea>
-                            </div> --}}
                             <div class="col-md-12">
                                 <button class="btn btn-primary">حفظ</button>
                             </div>
                         </div>
                     </form>
 
-                    {{-- <h1>دي هنستخدمها علشانن نضيف اكتر من خدمة جوا الليست</h1>
-                    <div class="card-body">
-                        <div class="input-group control-group  after-add-more">
-                            <div id="add_new" class="input-group 22 control-group after-add-more"></div>
-                            <input type="text" name="details['0'][key]" class="form-control custom-input mx-2"
-                                placeholder=" نوع الخدمة ">
-                            <input type="text" name="details['0'][value]" class="form-control custom-input  mx-2"
-                                placeholder="القيمة ">
-
-                            <div class="input-group-btn px-3">
-                                <button class="btn btn-success add-more" type="button"><i
-                                        class="glyphicon glyphicon-plus"></i>
-                                    إضافة</button>
-                            </div>
-
-                        </div>
-
-                    </div> --}}
 
                 </div>
             </div>
@@ -196,8 +170,9 @@
             $(".add-more").click(function() {
                 let rand = Math.floor(Math.random() * (999999 - 1)) + 1;
                 var html =
-                    '<div class="control-group 22 input-group" style="margin-top:10px;padding: 10px;">\n' +
-                    ' <select class="form-control col-md-6 " name="section[]"\n' +
+                    '<div class="control-group app_selectd  input-group" style="margin-top:10px;padding: 10px;">\n' +
+                    '   <div class="col-md-6 form-group mb-3">\n' +
+                    ' <select class="form-control" name="section[]"\n' +
                     '          required>\n' +
                     ' <option selected disabled>اختر القسم </option>\n' +
                     '               @foreach ($sections as $section)\n' +
@@ -205,58 +180,52 @@
                     '             @endforeach\n' +
 
                     ' </select>\n' +
+                    ' </div>\n' +
                     '\n' +
-                    ' <select  data-placeholder="اختر القسم أولا " class="form-control select5-select" \n' +
+                    '   <div class="col-md-6 form-group mb-3">\n' +
+                    ' <select  data-placeholder="اختر القسم أولا " class="form-control subsection select2-select" \n' +
                     ' name="providsub[]" id="select' + rand + '" multiple>\n' +
-
-
                     ' </select>\n' +
+                    ' </div>\n' +
                     '\n' +
                     '            <div class="input-group-btn px-3">\n' +
                     '                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> حذف</button>\n' +
                     '            </div>\n' +
-                    // '            <input type="text" name="details[' + rand +
-                    // '][key]" class="form-control mx-2 custom-input" placeholder="نوع الخدمة">\n' +
-                    // '            <input type="text" name="details[' + rand +
-                    // '][value]" class="form-control mx-2 custom-input" placeholder="القيمة ">\n' +
-                    // '\n' +
-                    // '            <div class="input-group-btn px-3">\n' +
-                    // '                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> حذف</button>\n' +
-                    // '            </div>\n' +
                     '        </div>';
                 $("#add_new").append(html);
 
-                $(".select5-select").select2();
 
+                $('.select2-select').select2();
 
 
             });
-
-
-
 
             $('body').on('click', '.remove', function() {
-                $(this).closest('.22').remove();
+                $(this).closest('.app_selectd').remove();
             });
 
 
         });
     </script>
+
     <script>
-        $(document).ready(function() {
-            $('.sectionTo').select2();
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.select2-select').select2();
+        $(document).on('change', '.form-group select[name="section[]"]', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $(this).parents().find('.app_selectd .subsection').addClass('hhhh');
         });
     </script>
 
     <script>
         $(document).ready(function() {
-            $('select[name="section[]"]').on('change', function() {
+
+            // $('select[name="section[]"]')
+            $(document).on('change', '.form-group select[name="section[]"]', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
                 var SectionId = $(this).val();
+
+
                 if (SectionId) {
                     $.ajax({
                         url: "{{ URL::to('dashboard/providers/show') }}/" + SectionId,
@@ -264,25 +233,48 @@
                         dataType: "json",
                         success: function(data) {
                             if (data.status == 1) {
-                                $('select[name="providsub[]"] option').remove();
-                                $('select[name="providsub[]"]').append(
-                                    "<option  disabled>اختر التصنيف</option>");
                                 $.each(data.data, function(index, value) {
                                     // console.log(data.data);
-                                    $('select[name="providsub[]"]').append(
-                                        "<option value=" + value
-                                        .id + ">" + value.title_ar +
-                                        "</option>");
+                                    // $('.app_selectd').parents().find(
+                                    //     '.subsection')
+                                    $('.app_selectd .subsection')
+                                        .append(
+                                            "<option value=" + value
+                                            .id + ">" + value.title_ar +
+                                            "</option>");
                                 });
                             }
+                            console.log(data.data);
+
+
                         }
                     });
+
                 } else {
                     console.log('AJAX load did not work');
+                    console.log(SectionId);
                 }
+
+
+
+
+
+
             });
         });
     </script>
+    <script>
+        // $(document).ready(function() {
+        //     $('.sectionTo').select2('destroy');
+        // });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.select2-select').select2();
+        });
+    </script>
+
+
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
