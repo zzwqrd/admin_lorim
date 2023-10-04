@@ -3,7 +3,7 @@
     <link id="gull-theme" rel="stylesheet" href="{{ asset('assets') }}/styles/css/image.css">
 @endsection
 
-<!-- ============ Body content start ============= -->
+
 @section('content')
     <div class="breadcrumb">
         <a href="{{ route('dashboard.home') }}">
@@ -119,7 +119,7 @@
         </div>
     </div>
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script src="{{ asset('assets') }}/js/image.js"></script>
     <script>

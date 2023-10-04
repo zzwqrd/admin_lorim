@@ -15,6 +15,7 @@ class SubSections extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+        'pivot',
     ];
 
     public function section()
@@ -27,3 +28,6 @@ class SubSections extends Model
         return $this->belongsToMany(Providers::class, 'provider_sub_section');
     }
 }
+
+
+

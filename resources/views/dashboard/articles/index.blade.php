@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-<!-- ============ Body content start ============= -->
+
 @section('content')
     <div class="breadcrumb">
         <a href="{{ route('dashboard.home') }}">
@@ -82,7 +82,7 @@
     </div>
     <!-- end of row -->
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script>
         $(document).ready(function() {

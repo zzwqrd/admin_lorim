@@ -19,7 +19,7 @@ class ProvidersController extends Controller
         $data = Providers::orderBy('id', 'desc')->get();
 
 
-        return response()->json(['data' => (new ProvidersResource($data)), 200,]);
+        return response()->json(['data' => $data, 200,]);
     }
 
 
@@ -27,16 +27,16 @@ class ProvidersController extends Controller
     {
 
 
-        Validator::make(
-            ['id' => $id],
-            [
-                'id' => 'required|integer|exists:sub_sections,id',
+        // Validator::make(
+        //     ['id' => $id],
+        //     [
+        //         'id' => 'required|integer|exists:sub_sections,id',
 
-            ]
-        )->validate();
+        //     ]
+        // )->validate();
 
 
-        $subSection = SubSections::with('providers')->findOrFail($id);
+        $subSection = Providers::with([ 'providsub', 'section'])->findOrFail($id);
 
         if (!$subSection) {
 

@@ -55,27 +55,27 @@
                                         </span>
 
                                         <!-- <span class="badge badge-warning"
-                                                                              style="font-size: 90%">موظف
-                                                                        </span> -->
+                                                                                  style="font-size: 90%">موظف
+                                                                            </span> -->
 
                                     </td>
 
                                     <!-- <td style="text-align: center;">
-                                                                        <a href=""
-                                                                              class="badge badge-success status-btn"
-                                                                              style="width:80px;height: 25px;padding:auto;margin:auto;
+                                                                            <a href=""
+                                                                                  class="badge badge-success status-btn"
+                                                                                  style="width:80px;height: 25px;padding:auto;margin:auto;
                                                                   padding-top: 7px; font-size: small">
-                                                                              نشط
-                                                                        </a>
-                                                                  </td> -->
+                                                                                  نشط
+                                                                            </a>
+                                                                      </td> -->
 
                                     <!-- <td style="text-align: center;">
-                                                                        <a href="" class="badge badge-danger status-btn"
-                                                                              style="width:80px;height: 25px;padding:auto;margin:auto;
+                                                                            <a href="" class="badge badge-danger status-btn"
+                                                                                  style="width:80px;height: 25px;padding:auto;margin:auto;
                                                                   padding-top: 7px; font-size: small">
-                                                                              غير نشط
-                                                                        </a>
-                                                                  </td> -->
+                                                                                  غير نشط
+                                                                            </a>
+                                                                      </td> -->
 
                                     <td style="text-align: center;">
                                         <a href="#" class="text-success mr-2">
@@ -103,7 +103,7 @@
     </div>
     <!-- end of row -->
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {

@@ -208,61 +208,66 @@
         });
     </script>
 
-    <script>
-        $(document).on('change', '.form-group select[name="section[]"]', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            $(this).parents().find('.app_selectd .subsection').addClass('hhhh');
+    {{-- <script>
+        $(document).on('change', '.form-group select[name="section[]"]', function(e) {
+            e.preventDefault();
+
+
+            $(this).parent().closest('.app_selectd .active').find(
+                'select').removeClass('active');
+            $(this).parent().closest('.app_selectd').find(
+                '.subsection').addClass('active');
         });
-    </script>
+    </script> --}}
+
 
     <script>
         $(document).ready(function() {
+            'use strict';
 
-            // $('select[name="section[]"]')
             $(document).on('change', '.form-group select[name="section[]"]', function(event) {
                 event.preventDefault();
-                event.stopPropagation();
-                var SectionId = $(this).val();
+                $(this).parent().closest('.app_selectd').find(
+                    '.subsection option').remove();
+
+                var id = $(this).val();
+
+                var url = "{{ url('dashboard/providers/show') }}" + '/' + id;
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'get',
+                    data: {
+                        id: id,
+                    },
+                    // mimeType: "multipart/form-data",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        // alert(url);
+                    },
+                    success: function(data) {
+                        if (data.status) {
 
 
-                if (SectionId) {
-                    $.ajax({
-                        url: "{{ URL::to('dashboard/providers/show') }}/" + SectionId,
-                        type: "get",
-                        dataType: "json",
-                        success: function(data) {
-                            if (data.status == 1) {
-                                $.each(data.data, function(index, value) {
-                                    // console.log(data.data);
-                                    // $('.app_selectd').parents().find(
-                                    //     '.subsection')
-                                    $('.app_selectd .subsection')
-                                        .append(
-                                            "<option value=" + value
-                                            .id + ">" + value.title_ar +
-                                            "</option>");
-                                });
-                            }
-                            console.log(data.data);
+                            $.each(data.data, function(index, value) {
+                                // console.log(data.data);
 
-
+                                $('.form-group select[name="section[]"]').parents()
+                                    .closest('.app_selectd')
+                                    .find(
+                                        '.subsection').append("<option value=" +
+                                        value
+                                        .id + ">" + value.title_ar + "</option>");
+                            });
                         }
-                    });
-
-                } else {
-                    console.log('AJAX load did not work');
-                    console.log(SectionId);
-                }
-
-
-
-
-
-
+                    }
+                });
             });
         });
     </script>
+
     <script>
         // $(document).ready(function() {
         //     $('.sectionTo').select2('destroy');

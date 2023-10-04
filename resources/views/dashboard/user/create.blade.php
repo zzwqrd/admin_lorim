@@ -1,10 +1,11 @@
-
 @extends('dashboard.layouts.app')
 
-<!-- ============ Body content start ============= -->
+
 @section('content')
     <div class="breadcrumb">
-        <a href="{{route('dashboard.home')}}"><h1>الرئيسية</h1></a>
+        <a href="{{ route('dashboard.home') }}">
+            <h1>الرئيسية</h1>
+        </a>
         <ul>
             <li><a> أضافة مستخدم</a></li>
         </ul>
@@ -16,15 +17,16 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <div class="card-title mb-3">  <strong class="text-primary">الاضافة</strong></div>
+                    <div class="card-title mb-3"> <strong class="text-primary">الاضافة</strong></div>
                 </div>
                 <div class="card-body">
-                    <form id="change-pwd" action="{{url('dashboard/user/store')}}" method="post">
+                    <form id="change-pwd" action="{{ url('dashboard/user/store') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-md-4 form-group mb-3">
                                 <label for="username">الإسم</label>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="الإسم" value="{{old('username')}}" autocomplete="off">
+                                <input type="text" class="form-control" name="username" id="username"
+                                    placeholder="الإسم" value="{{ old('username') }}" autocomplete="off">
                                 @if ($errors->has('username'))
                                     <span class="text-danger" role="alert">
                                         <strong>الإسم مطلوب</strong>
@@ -34,7 +36,8 @@
 
                             <div class="col-md-4 form-group mb-3">
                                 <label for="email">البريد الإلكتروني</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="البريد الإلكتروني" value="{{old('email')}}" autocomplete="off">
+                                <input type="email" class="form-control" name="email" id="email"
+                                    placeholder="البريد الإلكتروني" value="{{ old('email') }}" autocomplete="off">
                                 @if ($errors->has('email'))
                                     <span class="text-danger" role="alert">
                                         <strong>البريد الإلكتروني مطلوب</strong>
@@ -44,7 +47,8 @@
 
                             <div class="col-md-4 form-group mb-3">
                                 <label for="phone">رقم الجوال</label>
-                                <input type="number" class="form-control" name="phone" id="phone" value="{{old('phone')}}" placeholder="رقم الجوال ">
+                                <input type="number" class="form-control" name="phone" id="phone"
+                                    value="{{ old('phone') }}" placeholder="رقم الجوال ">
                                 @if ($errors->has('phone'))
                                     <span class="text-danger" role="alert">
                                         <strong>رقم الجوال مطلوب ويجب أن يكون صحيح</strong>
@@ -54,7 +58,8 @@
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="password">كلمة المرور</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="كلمة المرور ">
+                                <input type="password" class="form-control" name="password" id="password"
+                                    placeholder="كلمة المرور ">
                                 @if ($errors->has('password'))
                                     <span class="text-danger" role="alert">
                                         <strong>كلمه المرور مطلوبه ويجب ان لا تقل عن 8 حروف او ارقام</strong>
@@ -64,7 +69,8 @@
 
                             <div class="col-md-6 form-group mb-3">
                                 <label for="password_confirmation">تأكيد كلمة المرور</label>
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="تأكيد كلمة المرور ">
+                                <input type="password" class="form-control" name="password_confirmation"
+                                    id="password_confirmation" placeholder="تأكيد كلمة المرور ">
                                 @if ($errors->has('password_confirmation'))
                                     <span class="text-danger" role="alert">
                                         <strong>يجب تأكيد كلمة المرور</strong>
@@ -82,10 +88,8 @@
             </div>
         </div>
     </div>
-
-
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
@@ -99,7 +103,7 @@
                 },
                 url: {
                     required: true,
-                    url:true,
+                    url: true,
                 },
 
             },
@@ -111,23 +115,25 @@
                 },
                 url: {
                     required: 'يرجى إدخال رابط الموقع  ',
-                    url:'برجاء ادخال رابط صحيح',
+                    url: 'برجاء ادخال رابط صحيح',
                 },
             },
-            submitHandler: function (form) {
+            submitHandler: function(form) {
                 form.submit();
             },
-            highlight: function (element) {
+            highlight: function(element) {
                 $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                $(element).closest('.form-group').find('.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                $(element).closest('.form-group').find('.glyphicon').removeClass('glyphicon-ok').addClass(
+                    'glyphicon-remove');
             },
-            unhighlight: function (element) {
+            unhighlight: function(element) {
                 $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-                $(element).closest('.form-group').find('.glyphicon').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                $(element).closest('.form-group').find('.glyphicon').removeClass('glyphicon-remove').addClass(
+                    'glyphicon-ok');
             },
             errorElement: 'span',
             errorClass: 'help-block',
-            errorPlacement: function (error, element) {
+            errorPlacement: function(error, element) {
                 if (element.parent('.input-group').length) {
                     error.insertAfter(element.parent());
                 } else if (element.closest('.form-group').find('.cke').length) {
@@ -138,5 +144,4 @@
             }
         });
     </script>
-
 @endsection

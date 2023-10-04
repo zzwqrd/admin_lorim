@@ -755,7 +755,7 @@
         </div>
         <!--=============== Left side End ================-->
 
-        <!-- ============ Body content start ============= -->
+
         <div class="main-content-wrap sidenav-open d-flex flex-column">
             <div class="breadcrumb">
                 <a href="#">
@@ -863,7 +863,7 @@
 
 
         </div>
-        <!-- ============ Body content End ============= -->
+
     </div>
     <!--=============== End app-admin-wrap ================-->
 

@@ -147,7 +147,7 @@
 
     <!-- end of row -->
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script>
         $(function() {

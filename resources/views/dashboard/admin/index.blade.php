@@ -96,7 +96,7 @@
     </div>
     <!-- end of row -->
 @endsection
-<!-- ============ Body content End ============= -->
+
 @section('js')
     <script type="text/javascript">
         $(document).ready(function() {

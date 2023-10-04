@@ -77,9 +77,18 @@ class ProvidersController extends Controller
     public function show($id)
     {
 
-        $providsub = SubSections::where('section_id', $id)->get();
+        Validator::make(
+            [
+                'id' => $id,
+            ],
+            [
+                'id' => 'required|integer|exists:sections,id',
+            ]
+        )->validate();
 
-        return response()->json(['status' => 1, 'data' => $providsub]);
+        $data = SubSections::where('section_id', $id)->get();
+
+        return response()->json(['status' => 1, 'data' => $data]);
     }
 
     /**

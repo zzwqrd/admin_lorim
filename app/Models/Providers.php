@@ -25,12 +25,14 @@ class Providers extends Model
     protected $guarded = [
         'created_at',
         'updated_at',
+
     ];
 
 
     protected $hidden = [
         'created_at',
         'updated_at',
+        'pivot',
     ];
 
     public function getImageAttribute($image)

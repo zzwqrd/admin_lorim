@@ -19,6 +19,7 @@ class Sections extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+        'pivot',
     ];
 
     public function getImageAttribute($image)
@@ -47,9 +48,14 @@ class Sections extends Model
 //     return $this->belongsTo(Sections::all());
 // }
 
-// public function subsection()
-// {
-//     return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
-// }
+public function sub()
+{
+    return $this->belongsTo(SubSections::class);
+}
+
+public function subsection()
+{
+    return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
+}
 
 }
