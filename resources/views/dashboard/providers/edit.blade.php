@@ -108,51 +108,67 @@
 
                                 </div>
                                 <div id="add_new" class="input-group control-group after-add-more">
-                                    <div class="control-group app_selectd  input-group"
-                                        style="margin-top:10px;padding: 10px;">
-                                        <div class="col-md-6 form-group mb-3">
-                                            <label for="section" class="control-label">القسم</label>
-                                            <select name="section[]" data-placeholder="حدد القسم"
-                                                class="form-control  SlectBox">
-                                                {{-- sectionTo --}}
-                                                {{-- multiple --}}
-                                                <!--placeholder-->
-                                                <option selected disabled>اختر القسم </option>
-                                                @foreach ($sections as $section)
-                                                    <option value="{{ $section->id }}"> {{ $section[lang('title')] }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @if ($errors->has('section'))
-                                                <span class="text-danger" role="alert">
-                                                    <strong>{{ $errors->first('section') }} </strong>
-                                                </span>
-                                            @endif
+
+                                    @foreach ($data->section as $dataSection)
+                                        <div class="control-group app_selectd  input-group"
+                                            style="margin-top:10px;padding: 10px;">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="section" class="control-label">القسم</label>
+
+                                                <select name="section[]" data-placeholder="حدد القسم"
+                                                    class="form-control  SlectBox">
+                                                    {{-- sectionTo --}}
+                                                    {{-- multiple --}}
+                                                    <!--placeholder-->
+                                                    {{-- <option selected disabled>اختر القسم </option> --}}
+                                                    @foreach ($sections as $item)
+                                                        <option value="{{ $item->id }}"
+                                                            @if ($dataSection->id == $item->id) selected @endif>
+                                                            {{ $item[lang('title')] }}
+                                                        </option>
+                                                    @endforeach
+
+                                                    {{-- <option value="{{ $section->id }}"> {{ $section[lang('title')] }}
+                                                    </option> --}}
+
+                                                </select>
+
+                                                @if ($errors->has('section'))
+                                                    <span class="text-danger" role="alert">
+                                                        <strong>{{ $errors->first('section') }} </strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            @foreach ($data->providsub as $item)
+                                                <div class="col-md-6 form-group mb-3">
+                                                    <label for="sub_section" class="control-label"> القسم الفرعي</label>
+
+                                                    <select data-placeholder="اختر القسم أولا "
+                                                        class="form-control subsection select2-select" name="providsub[]"
+                                                        id="sub_section">
+
+                                                        <option value="{{ $item->sub_sections_id }}" selected>
+                                                            {{ $item[lang('title')] }}
+                                                        </option>
+
+                                                    </select>
+
+
+                                                    @if ($errors->has('sub_section'))
+                                                        <span class="text-danger" role="alert">
+                                                            <strong>{{ $errors->first('sub_section') }} </strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                            <div class="input-group-btn px-3">
+                                                <button class="btn btn-danger remove" type="button"><i
+                                                        class="glyphicon glyphicon-remove"></i> حذف</button>
+                                            </div>
                                         </div>
-
-                                        <div class="col-md-6 form-group mb-3">
-                                            <label for="sub_section" class="control-label"> القسم الفرعي</label>
-
-                                            <select data-placeholder="اختر القسم أولا "
-                                                class="form-control subsection select2-select" name="providsub[]"
-                                                id="sub_section" multiple>
-                                                {{-- <option selected disabled> </option> --}}
-                                                @foreach ($data->providsub as $p)
-                                                    <option value="{{ $p->id }}" selected>
-                                                        {{ $p[lang('title')] }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                    @endforeach
 
 
-
-                                            @if ($errors->has('sub_section'))
-                                                <span class="text-danger" role="alert">
-                                                    <strong>{{ $errors->first('sub_section') }} </strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="input-group-btn px-3">
                                     <button class="btn btn-success add-more" type="button"><i
@@ -284,17 +300,20 @@
                     '.subsection option').remove();
 
 
-
+                var dataid = $(this).parent().closest('.app_selectd').find(
+                    '.subsection');
 
                 var id = $(this).val();
 
                 var url = "{{ url('dashboard/providers/show') }}" + '/' + id;
+
                 $.ajax({
                     url: url,
                     dataType: 'json',
                     type: 'get',
                     data: {
                         id: id,
+                        dataid: dataid,
                     },
 
                     // mimeType: "multipart/form-data",
@@ -309,16 +328,10 @@
 
 
                             $.each(data.data, function(index, value) {
-                                // console.log(data.data[index].section_id);
-
-
-
-                                $('.form-group select[name="section[]"]').parent()
-                                    .closest('.app_selectd')
-                                    .find(
-                                        '.subsection').append("<option value=" +
-                                        value
-                                        .id + ">" + value.title_ar + "</option>");
+                                console.log(dataid);
+                                dataid.append("<option value=" +
+                                    value
+                                    .id + ">" + value.title_ar + "</option>");
 
                             });
                         }

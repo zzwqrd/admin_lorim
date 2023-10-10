@@ -98,6 +98,7 @@ class ProvidersController extends Controller
     {
         $data = Providers::findOrFail($id);
         $sections = Sections::orderBy('id', 'desc')->get();
+        $sub = SubSections::orderBy('id', 'desc')->get();
 
         return view('dashboard.providers.edit', compact('data', 'sections'));
     }

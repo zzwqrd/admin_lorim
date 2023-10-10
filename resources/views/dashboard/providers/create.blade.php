@@ -259,9 +259,6 @@
 
                             $.each(data.data, function(index, value) {
                                 console.log(dataid);
-
-
-
                                 dataid.append("<option value=" +
                                     value
                                     .id + ">" + value.title_ar + "</option>");
