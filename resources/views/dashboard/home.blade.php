@@ -36,7 +36,7 @@
                     <i class="i-Add-User"></i>
                     <div class="content">
                         <p class="text-muted mt-2 mb-0">المستخدمين</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">205</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{ $data['users'] }}</p>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <i class="i-Add-User"></i>
                     <div class="content">
                         <p class="text-muted mt-2 mb-0">الشركاء</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">205</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{ $data['providers'] }}</p>
                     </div>
                 </div>
             </div>

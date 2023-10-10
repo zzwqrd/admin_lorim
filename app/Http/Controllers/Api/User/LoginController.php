@@ -56,7 +56,7 @@ class LoginController extends ResponseController
         $response['token'] = $token;
 
 
-        return response()->json(['data' => $response, 'message' => trans('user.login.login_success')]);
+        return response()->json(['data' => $response, 'message' => trans('user.login.login_success'), 'status' => 200]);
 
     }
 

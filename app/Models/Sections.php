@@ -55,7 +55,11 @@ public function sub()
 
 public function subsection()
 {
-    return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
+    return $this->hasMany(SubSections::class, 'section_id', 'id');
+}
+
+public function user () {
+    return $this->hasMany(User::class);
 }
 
 }

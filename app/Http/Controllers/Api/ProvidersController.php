@@ -51,4 +51,19 @@ class ProvidersController extends Controller
         ]);
 
     }
+
+    public function showProvider($id) {
+
+        $provider = SubSections::with('providers')->findOrFail($id);
+
+        if (!$provider) {
+
+            return response()->json(['message' => 'Providers not found'], 404);
+
+        }
+
+        return response()->json([
+            'data' => $provider
+        ]);
+    }
 }

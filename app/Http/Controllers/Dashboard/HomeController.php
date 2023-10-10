@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Providers;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,6 +23,9 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('dashboard.home');
+        $data['users'] = User::get()->count();
+        $data['providers'] = Providers::get()->count();
+
+        return view('dashboard.home', compact('data'));
     }
 }

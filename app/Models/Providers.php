@@ -62,10 +62,10 @@ class Providers extends Model
     }
 
 
-    // public function subsection()
-    // {
-    //     return $this->belongsTo(SubSections::class, 'sub_section_id', 'id');
-    // }
+    public function subsection()
+    {
+        return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
+    }
 
 // public function providers()
 // {

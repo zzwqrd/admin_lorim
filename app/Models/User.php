@@ -28,6 +28,11 @@ class User extends Authenticatable implements JWTSubject
     //     return $this->hasMany(Order::class, 'user_id', 'id')->orderBy('id', 'desc');
     // }
 
+    public function section()
+    {
+        return $this->belongsTo(Sections::class);
+    }
+
 
     protected $fillable = [
         'name',

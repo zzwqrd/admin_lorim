@@ -34,6 +34,11 @@
     </div>
 @endif --}}
 
+{{-- toastr.options.closeButton = true;
+toastr.options.closeMethod = 'fadeOut';
+toastr.options.closeDuration = 100;
+toastr.success(data.message); --}}
+
 
 
 @if ($message = Session::get('success'))

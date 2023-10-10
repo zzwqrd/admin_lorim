@@ -19,7 +19,7 @@ class ProvidersController extends Controller
      */
     public function index()
     {
-        $data = Providers::orderBy('id', 'desc')->latest()->get();
+        $data = Providers::orderBy('id', 'desc')->get();
 
         return view('dashboard.providers.index', compact('data'));
     }
