@@ -50,7 +50,7 @@ class SectionController extends Controller
 
         } catch (Exception $e) {
 
-            log_error();
+            log_error($e);
 
             DB::rollBack();
 

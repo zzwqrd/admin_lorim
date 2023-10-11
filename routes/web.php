@@ -60,7 +60,23 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
         Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'edit']);
         Route::post('update', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'update']);
         Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroy']);
+        // Route::get('destroyItem/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroyItem']);
     });
+
+
+    Route::prefix('ad')->middleware('adminRole')->group(function () {
+
+        // Route::resource('photos', ProvidersController::class);
+        Route::get('index', [\App\Http\Controllers\Dashboard\AdController::class, 'index']);
+        Route::get('show/{id}', [\App\Http\Controllers\Dashboard\AdController::class, 'show']);
+        Route::get('create', [\App\Http\Controllers\Dashboard\AdController::class, 'create']);
+        Route::post('store', [\App\Http\Controllers\Dashboard\AdController::class, 'store']);
+        Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\AdController::class, 'edit']);
+        Route::post('update', [\App\Http\Controllers\Dashboard\AdController::class, 'update']);
+        Route::get('destroy/{id}', [\App\Http\Controllers\Dashboard\AdController::class, 'destroy']);
+        // Route::get('destroyItem/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroyItem']);
+    });
+
 
 
     // للتجربة فقط

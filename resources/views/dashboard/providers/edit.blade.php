@@ -114,9 +114,10 @@
                                             style="margin-top:10px;padding: 10px;">
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="section" class="control-label">القسم</label>
-
+                                                {{-- "{{ url('dashboard/providers/show') }}" + '/' + id; --}}
                                                 <select name="section[]" data-placeholder="حدد القسم"
                                                     class="form-control  SlectBox">
+
                                                     {{-- sectionTo --}}
                                                     {{-- multiple --}}
                                                     <!--placeholder-->
@@ -139,28 +140,41 @@
                                                     </span>
                                                 @endif
                                             </div>
-                                            @foreach ($data->providsub as $item)
-                                                <div class="col-md-6 form-group mb-3">
-                                                    <label for="sub_section" class="control-label"> القسم الفرعي</label>
 
-                                                    <select data-placeholder="اختر القسم أولا "
-                                                        class="form-control subsection select2-select" name="providsub[]"
-                                                        id="sub_section">
+                                            <div class="col-md-6 form-group mb-3">
+                                                <label for="sub_section" class="control-label"> القسم الفرعي</label>
 
-                                                        <option value="{{ $item->sub_sections_id }}" selected>
-                                                            {{ $item[lang('title')] }}
-                                                        </option>
+                                                <select data-placeholder="اختر القسم أولا "
+                                                    class="form-control subsection select2-select" name="providsub[]"
+                                                    multiple>
 
-                                                    </select>
+                                                    {{-- @foreach ($data->providsub as $item)
+                                                    @endforeach --}}
+
+                                                    {{-- @foreach ($data->providsub as $item)
+                                                        @if ($data->providsub != null || $data->providsub != [])
+                                                            <option
+                                                                value="{{ $item->sub_sections_id == $dataSection->id }}"
+                                                                selected>
+                                                                {{ $item[lang('title')] }}
+                                                            </option> --}}
+                                                    {{-- @else
+                                                        @foreach ($sub as $item)
+
+                                                        @endforeach --}}
+                                                    {{-- @endif
+                                                    @endforeach --}}
+
+                                                </select>
 
 
-                                                    @if ($errors->has('sub_section'))
-                                                        <span class="text-danger" role="alert">
-                                                            <strong>{{ $errors->first('sub_section') }} </strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            @endforeach
+                                                @if ($errors->has('sub_section'))
+                                                    <span class="text-danger" role="alert">
+                                                        <strong>{{ $errors->first('sub_section') }} </strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+
                                             <div class="input-group-btn px-3">
                                                 <button class="btn btn-danger remove" type="button"><i
                                                         class="glyphicon glyphicon-remove"></i> حذف</button>
@@ -234,6 +248,7 @@
 
 @section('js')
     <script src="{{ asset('assets') }}/js/image.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $(".add-more").click(function() {
@@ -253,7 +268,7 @@
                     '\n' +
                     '   <div class="col-md-6 form-group mb-3">\n' +
                     ' <select  data-placeholder="اختر القسم أولا " class="form-control subsection select2-select" \n' +
-                    ' name="providsub[]" id="select' + rand + '" multiple>\n' +
+                    ' name="providsub[]"  multiple>\n' +
                     ' </select>\n' +
                     ' </div>\n' +
                     '\n' +
@@ -278,6 +293,9 @@
     </script>
 
     {{-- <script>
+        $( "ul li" ).addClass(function( index ) {
+            return "item-" + index;
+        });
         $(document).on('change', '.form-group select[name="section[]"]', function(e) {
             e.preventDefault();
 
@@ -288,6 +306,8 @@
                 '.subsection').addClass('active');
         });
     </script> --}}
+
+
 
 
     <script>
@@ -343,12 +363,15 @@
 
     <script>
         $(document).ready(function() {
-            $('..select2-select2').select2('destroy');
+            $('.select2-select2').select2('destroy');
         });
     </script>
     <script>
+        //  $( "ul li" ).addClass(function( index ) {
+        //     return "item-" + index;
+        // });
         $(document).ready(function() {
-            $('.select2-select').select2();
+            return $('.select2-select').select2();
         });
     </script>
 

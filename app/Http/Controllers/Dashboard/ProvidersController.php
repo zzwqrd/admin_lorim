@@ -96,11 +96,13 @@ class ProvidersController extends Controller
      */
     public function edit($id)
     {
+
         $data = Providers::findOrFail($id);
         $sections = Sections::orderBy('id', 'desc')->get();
-        $sub = SubSections::orderBy('id', 'desc')->get();
 
-        return view('dashboard.providers.edit', compact('data', 'sections'));
+        $subSections = SubSections::where('section_id', $id)->get();
+
+        return view('dashboard.providers.edit', compact('data', 'sections', 'subSections'));
     }
 
     /**
@@ -153,4 +155,17 @@ class ProvidersController extends Controller
         }
         return back()->with('success', trans('response.deleted'));
     }
+
+    // public function destroyItem ($id) {
+    //     Validator::make(['id' => $id],['id' => 'required|integer|exists:provider_section,id'])->validate();
+    //     $data = Providers::findOrFail($id);
+    //     $data->section()->sync((array) request()->input('section'));
+    //     $delete = $data->delete();
+    //     if (!$delete) {
+    //         return back()->with('error','حدث شئ ما خطأ يرجى المحاولة مرة أخرى');
+    //     }
+
+    //     return back()->with('success','تم حذف العنصر بنجاح');
+
+    // }
 }
