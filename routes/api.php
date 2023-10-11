@@ -33,12 +33,7 @@ Route::prefix('home')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\HomeController::class, 'index']);
 });
 
-
-Route::middleware('apiAuth')->group(function () {
-
-
-
-});
+;
 
 Route::prefix('sections')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\SectionController::class, 'index']);
@@ -58,3 +53,12 @@ Route::prefix('ads')->group(function () {
 });
 
 
+
+
+Route::middleware('apiAuth')->group(function () {
+
+    Route::prefix('rate')->group(function () {
+        Route::post('store', [\App\Http\Controllers\Api\RateController::class, 'store']);
+    });
+
+});

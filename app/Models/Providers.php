@@ -67,6 +67,11 @@ class Providers extends Model
         return $this->hasMany(SubSections::class, 'sub_section_id', 'id');
     }
 
+    public function rates()
+    {
+        return $this->hasMany(Rate::class, 'provider_id', 'id');
+    }
+
 // public function providers()
 // {
 //     return $this->hasMany(Providers::class, 'sub_section_id', 'id');

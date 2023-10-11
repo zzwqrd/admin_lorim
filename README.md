@@ -19,6 +19,7 @@ php artisan db:seed
 
 php artisan  make:controller Dashboard/ArticlesController
 php artisan make:migration add_sections_id_to_providers_table --table=providers
+php artisan  make:controller Dashboard/RateController --resource --model=Rate
 
 -----***-------
 
