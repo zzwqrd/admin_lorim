@@ -49,4 +49,8 @@ Route::prefix('provider')->group(function () {
     Route::get('showProvider/{id}', [\App\Http\Controllers\Api\ProvidersController::class, 'showProvider']);
 });
 
+Route::prefix('ads')->group(function () {
+    Route::get('index', [\App\Http\Controllers\Api\AdController::class, 'index']);
+});
+
 
