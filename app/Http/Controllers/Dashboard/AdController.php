@@ -63,24 +63,70 @@ class AdController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ad $ad)
+    public function edit($id)
     {
-        //
+        $this->validate(request(),['id' => $id],[
+            'id'  => 'required|integer|exists:ads,id',
+        ]);
+        $data = Ad::findOrFail($id);
+        return view('dashboard.ad.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ad $ad)
+    public function update(AdsRequest $request)
     {
-        //
+        try {
+
+
+            $validated = $request->validated(['id' => 'required|integer|exists:ads,id',]);
+
+            $data = Ad::findOrFail(request()->id);
+            $validated['image'] = $request->image;
+            $validated['title_ar'] = $request->title_ar;
+            $validated['title_en'] = $request->title_en;
+
+
+            $update = $data->update($validated);
+
+            return back()->with('success', trans('response.updated'));
+
+            } catch (Exception $e) {
+
+                log_error();
+
+                DB::rollBack();
+
+                return back()->with('error', trans('response.failed'));
+            }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ad $ad)
-    {
-        //
-    }
+    public function destroy($id)
+        {
+            Validator::make(
+                [
+                    'id' => $id,
+                ],
+                [
+                    'id' => 'required|integer|exists:ads,id'
+                ],
+            )->validate();
+            $ads = Ad::findOrFail(request()->id);
+
+            $delete = $ads->delete();
+
+            if (!$delete) {
+                return back()->with('error', trans('خطأ'));
+
+            }
+            if ($ads->image != null && file_exists(public_path('uploads/ads/' . $ads->image))) {
+                unlink(public_path('uploads/ads/' . $ads->image));
+            }
+            return back()->with('success', trans('response.deleted'));
+
+        }
 }

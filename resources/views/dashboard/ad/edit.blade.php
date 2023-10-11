@@ -51,6 +51,33 @@
 
                             </div>
 
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="title_ar">المقال بلغة العربيه </label>
+                                @isset($data)
+                                    <textarea type="text" class="form-control" name="title_ar" id="title_ar" placeholder="title_ar "
+                                        value="{{ $data->title_en }}" autocomplete="off">{{ $data->title_en }}</textarea>
+                                @endisset
+
+                                @if ($errors->has('title_ar'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('title_ar') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="title_en">المقال بلغة الانجليزية </label>
+                                @isset($data)
+                                    <textarea type="text" class="form-control" name="title_en" id="title_en" placeholder="title_en "
+                                        value="{{ $data->title_en }}" autocomplete="off">{{ $data->title_en }}</textarea>
+                                @endisset
+                                @if ($errors->has('title_en'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('title_en') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
 
                             <div class="col-md-12">
                                 <button class="btn btn-primary">حفظ</button>

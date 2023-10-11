@@ -59,7 +59,7 @@
                                                     class="text-info mr-2">
                                                     <i class="nav-icon i-Eye font-weight-bold "></i>
                                                 </a>
-                                                <a href="{{ url('dashboard/ad/delete/' . $item->id) }}"
+                                                <a href="{{ url('dashboard/ad/destroy/' . $item->id) }}"
                                                     class="text-danger mr-2">
                                                     <i class="nav-icon i-Close-Window font-weight-bold delete-btn"></i>
                                                 </a>
