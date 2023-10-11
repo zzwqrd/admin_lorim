@@ -16,6 +16,7 @@ class Ad extends Model
         'title_ar',
         'title_en',
     ];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function getImageAttribute($image)
     {

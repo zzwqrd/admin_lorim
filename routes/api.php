@@ -29,6 +29,10 @@ Route::prefix('user')->group(function () {
 
 });
 
+Route::prefix('home')->group(function () {
+    Route::get('index', [\App\Http\Controllers\Api\HomeController::class, 'index']);
+});
+
 
 Route::middleware('apiAuth')->group(function () {
 

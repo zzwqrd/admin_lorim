@@ -13,7 +13,7 @@ class AdController extends Controller
     {
         $data = Ad::orderBy('id', 'desc')->get();
 
-        return response()->json([['data' => $data] , 'message' => trans('success'),
+        return response()->json(['data' => $data , 'message' => trans('success'),
         'status' => 200,]);
     }
 
