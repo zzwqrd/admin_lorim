@@ -4,9 +4,19 @@ use App\Http\Controllers\Dashboard\Admin\LoginController;
 use App\Http\Controllers\Dashboard\ProvidersController;
 use Illuminate\Support\Facades\Route;
 
+// Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::get('login', [LoginController::class, 'get']);
+//     Route::post('login/post', [LoginController::class, 'post']);
+// });
+
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('login', [LoginController::class, 'get']);
     Route::post('login/post', [LoginController::class, 'post']);
+    Route::get('forget-password','Admin\ForgetPasswordController@forgetPassword')->name('forgetPassword.get');
+    Route::post('forget-password/post','Admin\ForgetPasswordController@forgetPasswordPost')->name('forgetPassword.post');
+    Route::get('reset-password/{email}/{token}','Admin\ForgetPasswordController@resetPassword')->name('resetPassword.get');
+    Route::post('reset-password/post','Admin\ForgetPasswordController@resetPasswordPost')->name('resetPassword.post');
 });
 
 Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->group(function () {
@@ -15,7 +25,13 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
     Route::get('/logout', [\App\Http\Controllers\Dashboard\Admin\LoginController::class, 'logout'])->name('logout');
 
     Route::prefix('admin')->group(function () {
+
         Route::get('index', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'index'])->middleware('adminRole');
+        Route::get('create', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'create'])->middleware('adminRole');
+        Route::post('store', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'store'])->middleware('adminRole');
+        Route::get('delete/{id}', [\App\Http\Controllers\Dashboard\Admin\AdminController::class, 'delete'])->middleware('adminRole');
+        Route::get('change-password', [\App\Http\Controllers\Dashboard\Admin\ChangePasswordController::class, 'get'])->name('changePassword.get');
+        Route::post('change-password.post', [\App\Http\Controllers\Dashboard\Admin\ChangePasswordController::class, 'post'])->name('changePassword.post');
 
     });
 

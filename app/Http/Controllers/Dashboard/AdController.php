@@ -88,7 +88,7 @@ class AdController extends Controller
             $validated['title_en'] = $request->title_en;
 
 
-            $update = $data->update($validated);
+             $data->update($validated);
 
             return back()->with('success', trans('response.updated'));
 

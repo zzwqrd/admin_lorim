@@ -55,7 +55,7 @@
                                 <label for="title_ar">المقال بلغة العربيه </label>
                                 @isset($data)
                                     <textarea type="text" class="form-control" name="title_ar" id="title_ar" placeholder="title_ar "
-                                        value="{{ $data->title_en }}" autocomplete="off">{{ $data->title_en }}</textarea>
+                                        value="{{ $data->title_ar }}" autocomplete="off">{{ $data->title_ar }}</textarea>
                                 @endisset
 
                                 @if ($errors->has('title_ar'))

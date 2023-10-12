@@ -57,4 +57,51 @@ class RateController extends Controller
 
 
     }
+
+    // public function destroy($id)
+    // {
+    //     Validator::make(['id' => $id],['id'      => ['required', 'integer', Rule::exists('providers')],])->validate();
+
+    //     $item = Providers::find(request()->id);
+
+    //     $data = Rate::find($id);
+
+    //      $item->rate = ($item->rate == 0) ? request()->rate : ($item->rate - request()->rate) == 0;
+    //     $item->save();
+
+
+    //     $delete = $data->delete();
+    //     if (!$delete) {
+    //         return response()->json(['message' => trans('response.failed')],444);
+    //     }
+    //     return response()->json(['message' => trans('collection.favorite.removed')],200);
+    // }
+
+
+    public function destroy ($id) {
+        // validate check exists vendor_id in users table
+        $this->validate(request(),['id' => $id],['id'=>['required','integer',Rule::exists('providers')
+
+            ],]);
+
+        // validate check exists vendor_id in favorites table
+//        $val =$this->validate(request(),[request()->id,'vendor_id'],['vendor_id' => 'exists:favorites,vendor_id'
+//        ]);
+
+        $item = Providers::find(request()->id);
+
+        $data = Rate::find($id)->where('user_id',auth('api')->id())->where('provider_id',request()->id)->first();
+
+        if (!$data){
+            return response()->json(['message' => trans('collection.favorite.not_exist')],444);
+        }
+        $item->rate = ($item->rate == 0) ? request()->rate : ($item->rate + request()->rate) - request()->rate;
+        $item->save();
+
+        $delete = $data->delete();
+        if (!$delete) {
+            return response()->json(['message' => trans('response.failed')],444);
+        }
+        return response()->json(['message' => trans('collection.favorite.removed')],200);
+    }
 }

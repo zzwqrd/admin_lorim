@@ -1,8 +1,9 @@
 @extends('dashboard.layouts.app')
 
+<!-- ============ Body content start ============= -->
 @section('content')
     <div class="breadcrumb">
-        <a href="#">
+        <a href="{{ route('dashboard.home') }}">
             <h1>الرئيسية</h1>
         </a>
         <ul>
@@ -20,16 +21,14 @@
                     <div class="card-title mb-3">
                         <strong class="text-primary"> قائمة المديرين</strong>
                         <span class="align-baseline" style="display:inline;">
-                            <a class="btn btn-primary " href="add-admin.html" style="float: left">
-                                <i class="i-Add align-middle" style="font-size: 17px; font-weight: 600;">
-                                </i>
-                                إضافة مدير
+                            <a class="btn btn-primary " href="{{ url('dashboard/admin/create') }}" style="float: left">
+                                <i class="i-Add align-middle" style="font-size: 17px; font-weight: 600;"></i> إضافة مدير
                             </a>
                         </span>
 
                     </div>
                 </div>
-
+                @include('dashboard.layouts.message')
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="alternative_pagination_table" class="display table table-striped table-bordered"
@@ -44,7 +43,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @if (count($data) > 0 && !empty($data))
                                     @foreach ($data as $item)
                                         <tr>
@@ -80,9 +78,6 @@
                                         </tr>
                                     @endforeach
                                 @endif
-
-
-
                             </tbody>
 
                         </table>
@@ -95,36 +90,29 @@
 
     </div>
     <!-- end of row -->
+
+
 @endsection
-
+<!-- ============ Body content End ============= -->
 @section('js')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
-            $(".add-more").click(function() {
-                let rand = Math.floor(Math.random() * (999999 - 1)) + 1;
-                var html =
-                    '<div class="control-group 22 input-group" style="margin-top:10px;padding: 10px;">\n' +
-                    '            <input type="text" name="details[' + rand +
-                    '][key]" class="form-control mx-2 custom-input" placeholder="نوع الخدمة">\n' +
-                    '            <input type="text" name="details[' + rand +
-                    '][value]" class="form-control mx-2 custom-input" placeholder="القيمة ">\n' +
-                    '\n' +
-                    '            <div class="input-group-btn px-3">\n' +
-                    '                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> حذف</button>\n' +
-                    '            </div>\n' +
-                    '        </div>';
-                $("#add_new").append(html);
 
+            $("#alternative_pagination_table").on('click', '.status-btn', function() {
+                var id = $(this).attr('id');
+                var r = confirm("هل انت متاكد من تغيير الحالة");
+                if (!r) {
+                    return false
+                }
             });
 
-
-
-
-            $('body').on('click', '.remove', function() {
-                $(this).closest('.22').remove();
+            $("#alternative_pagination_table").on('click', '.delete-btn', function() {
+                var id = $(this).attr('id');
+                var r = confirm("هل انت متاكد من عمليه الحذف ؟");
+                if (!r) {
+                    return false
+                }
             });
-
-
         });
     </script>
 @endsection

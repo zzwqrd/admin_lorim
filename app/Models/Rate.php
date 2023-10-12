@@ -11,6 +11,8 @@ class Rate extends Model
 
     protected $fillable = ['provider_id','user_id','rate','review','cons_review'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function user() {
         return $this->belongsTo(User::class,'user_id','id');
     }

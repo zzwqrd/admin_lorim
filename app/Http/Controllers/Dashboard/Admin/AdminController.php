@@ -2,67 +2,55 @@
 
 namespace App\Http\Controllers\Dashboard\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use Validator;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data = Admin::all();
         return view('dashboard.admin.index', compact('data'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+
+        return view('dashboard.admin.create');
+    }
+    public function store()
+    {
+        $this->validate(
+            request(),
+            [
+                'username' => 'required|string|min:3',
+                'role' => 'required|string|in:1,2',
+                'email' => 'required|email|unique:admins,email',
+                'password' => 'required|string|confirmed',
+            ]
+        );
+        $create = Admin::create([
+            'username' => request()->username,
+            'email' => request()->email,
+            'role' => request()->role,
+            'password' => Hash::make(request()->password),
+        ]);
+        if (!$create) {
+            return back()->with('error', 'حدث شئ ما خطأ يرجى المحاولة مرة أخرى');
+        }
+        return redirect('dashboard')->with('success', 'تم إضافة المدير بنجاح');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function delete($id)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
+        Validator::make(['id' => $id], ['id' => 'required|integer|exists:admins,id'])->validate();
+        $admin = Admin::find($id)->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
+        if (!$admin) {
+            return back()->with('error', 'حدث شئ ما خطأ يرجى المحاولة مرة أخرى');
+        }
+        return back()->with('success', 'تم حذف المدير');
     }
 }

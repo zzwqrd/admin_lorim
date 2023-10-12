@@ -24,7 +24,7 @@ class AdsRequest extends FormRequest
         return [
             'title_ar' => 'required|string|max:800',
             'title_en' => 'required|string|max:800',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:5120',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:5120',
         ];
     }
 }

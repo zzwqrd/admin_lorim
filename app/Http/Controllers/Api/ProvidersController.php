@@ -36,7 +36,7 @@ class ProvidersController extends Controller
         // )->validate();
 
 
-        $subSection = Providers::with([ 'providsub', 'section'])->findOrFail($id);
+        $subSection = Providers::with([ 'providsub', 'section', 'rates'])->findOrFail($id);
 
         if (!$subSection) {
 
