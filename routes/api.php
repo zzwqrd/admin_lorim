@@ -33,13 +33,10 @@ Route::prefix('home')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\HomeController::class, 'index']);
 });
 
-;
-
 Route::prefix('sections')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\SectionController::class, 'index']);
     Route::get('show_sub/{id}', [\App\Http\Controllers\Api\SectionController::class, 'show_sub']);
 });
-
 
 Route::prefix('provider')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\ProvidersController::class, 'index']);
@@ -51,9 +48,6 @@ Route::prefix('provider')->group(function () {
 Route::prefix('ads')->group(function () {
     Route::get('index', [\App\Http\Controllers\Api\AdController::class, 'index']);
 });
-
-
-
 
 Route::middleware('apiAuth')->group(function () {
 
