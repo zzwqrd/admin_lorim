@@ -26,12 +26,16 @@ class OrderController extends Controller
 
             case 'underway':
                 $data = Order::where('status','3')->get();;
-                $title = 'طلبات تم شحنها';
+                $title = 'طلبات  قيد التنفيذ';
                 break;
 
             case 'delivered':
                 $data = Order::where('status','4')->get();;
-                $title = 'طلبات تم تسليمها';
+                $title = 'طلبات تم الانتهاء منها';
+                break;
+            case 'canceled':
+                $data = Order::where('status','2')->get();;
+                $title = 'طلبات تم الغاء';
                 break;
 
             default:
