@@ -15,7 +15,7 @@ class LoginController extends Controller
 //       dd(request()->all());
         $this->validate(request(),[
             'email' => 'required|email|max:225',
-            'password' => 'required|string|min:8|max:35',
+            'password' => 'required|string|min:6|max:35',
         ]);
 
 
@@ -27,7 +27,7 @@ class LoginController extends Controller
             return redirect('admin/login');
 
         }
-        return redirect('/dashboard/home/');
+        return redirect('/dashboard/');
 
     }
 

@@ -93,6 +93,13 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
         // Route::get('destroyItem/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'destroyItem']);
     });
 
+    Route::prefix('order')->middleware('adminRole')->group(function () {
+
+        Route::get('/{type}', [\App\Http\Controllers\Dashboard\OrderController::class, 'index']);
+
+
+    });
+
 
 
     // للتجربة فقط

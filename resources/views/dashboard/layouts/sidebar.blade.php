@@ -56,10 +56,10 @@
                               </a>
                               <div class="triangle"></div>
                         </li> -->
-                    <li class="nav-item">
-                        <a class="nav-item-hold" href="datatables.html">
-                            <i class="nav-icon i-File-Horizontal-Text"></i>
-                            <span class="nav-text">الطلبات</span>
+                    <li class="nav-item" data-item="order">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-Split-Horizontal-2-Window"></i>
+                            <span class="nav-text">الطلبات </span>
                         </a>
                         <div class="triangle"></div>
                     </li>
@@ -300,6 +300,45 @@
                         </ul>
                     </li>
                 </ul>
+                <!--        start order control-->
+                <ul class="childNav" data-parent="order">
+                    <li class="nav-item">
+                        <a href="{{ url('dashboard/order/new') }}">
+                            <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
+                            <span class="item-name">طلبات جديدة </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('dashboard/order/confirmed') }}">
+                            <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
+                            <span class="item-name">تم تأكيدها </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('dashboard/order/underway') }}">
+                            <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
+                            <span class="item-name">تم شحنها </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('dashboard/order/delivered') }}">
+                            <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
+                            <span class="item-name">تم توصيلها </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url('dashboard/order/canceled') }}">
+                            <i class="nav-icon i-Split-Horizontal-2-Window text-primary"></i>
+                            <span class="item-name">طلبات ملغية</span>
+                        </a>
+                    </li>
+
+                </ul>
+
                 <ul class="childNav" data-parent="ads">
                     <li class="nav-item">
                         <a href="{{ url('dashboard/ad/index') }}">
