@@ -96,6 +96,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
     Route::prefix('order')->middleware('adminRole')->group(function () {
 
         Route::get('/{type}', [\App\Http\Controllers\Dashboard\OrderController::class, 'index']);
+        Route::get('show/{id}', [\App\Http\Controllers\Dashboard\OrderController::class, 'show']);
         Route::get('status/{id}/{status}', [\App\Http\Controllers\Dashboard\OrderController::class, 'status'])->name('orderStatus');
 
 
