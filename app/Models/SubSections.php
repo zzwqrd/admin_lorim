@@ -10,6 +10,7 @@ class SubSections extends Model
     protected $fillable = [
         'title_ar',
         'title_en',
+        'price',
         'section_id',
     ];
     protected $hidden = [

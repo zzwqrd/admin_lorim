@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('title_en');
             $table->string('description_ar');
             $table->string('description_en');
+            $table->unsignedInteger('shipping_cost')->nullable();
             $table->double('rate')->default('0')->unsigned();
             $table->enum('status', ['0', '1'])->default('1');
             $table->timestamps();

@@ -10,7 +10,7 @@
             <h1>الرئيسية</h1>
         </a>
         <ul>
-            <li><a> الأقسام</a></li>
+            <li><a> مقدمين الخدمة</a></li>
         </ul>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <div class="card-title mb-3"> <strong class="text-primary">تعديل قسم</strong></div>
+                    <div class="card-title mb-3"> <strong class="text-primary">تعديل مقدم خدمة</strong></div>
                 </div>
                 @include('dashboard.layouts.message')
 

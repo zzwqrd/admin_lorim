@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->increments('id');
             $table->string('title_ar');
             $table->string('title_en');
+            $table->integer('price');
             $table->unsignedInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->timestamps();

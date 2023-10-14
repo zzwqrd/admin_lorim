@@ -24,6 +24,7 @@ class SubSectionsRequest extends FormRequest
         return [
             'title_ar' => 'required|string|max:255',
             'title_en' => 'required|string|max:255',
+            'price'     => 'required|integer|min:1',
             'section' => 'required|integer|exists:sections,id',
         ];
     }

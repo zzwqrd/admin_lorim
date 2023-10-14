@@ -10,6 +10,6 @@ class OrderItems extends Model
     protected $fillable = ['order_id','item_id','count','price'];
 
     public function itemDetails () {
-        return $this->belongsTo(Providers::class ,'item_id','id');
+        return $this->belongsTo(SubSections::class ,'item_id','id');
     }
 }

@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('provider_section', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedInteger('sections_id')->unsigned()->nullable();
             $table->foreign('sections_id')->references('id')->on('sections')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('providers_id')->unsigned();

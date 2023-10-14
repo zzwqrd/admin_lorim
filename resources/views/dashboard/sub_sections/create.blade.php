@@ -20,7 +20,7 @@
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <div class="card-title mb-3"> <strong class="text-primary">إضافة قسم</strong></div>
+                    <div class="card-title mb-3"> <strong class="text-primary">إضافة قسم فرعي</strong></div>
                 </div>
                 @include('dashboard.layouts.message')
 
@@ -67,6 +67,16 @@
                                 @if ($errors->has('title_en'))
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $errors->first('title_en') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="price">السعر </label>
+                                <input type="text" class="form-control" name="price" id="price"
+                                    placeholder="السعر " value="{{ old('price') }}" autocomplete="off">
+                                @if ($errors->has('price'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('price') }} </strong>
                                     </span>
                                 @endif
                             </div>

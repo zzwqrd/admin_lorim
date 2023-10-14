@@ -19,7 +19,7 @@
             <div class="card text-left">
                 <div class="card-header">
                     <div class="card-title mb-3">
-                        <strong class="text-primary"> قائمة الأقسام</strong>
+                        <strong class="text-primary"> قائمة الأقسام الرئيسية</strong>
                         <span class="align-baseline" style="display:inline;">
                             <a class="btn btn-primary " href="{{ url('dashboard/section/create') }}" style="float: left">
                                 <i class="i-Add align-middle" style="font-size: 17px; font-weight: 600;"></i> إضافة قسم </a>

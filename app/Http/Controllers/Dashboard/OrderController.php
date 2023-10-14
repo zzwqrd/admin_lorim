@@ -44,4 +44,33 @@ class OrderController extends Controller
         return view('dashboard.order.index',compact('data','title'));
 
     }
+
+    public function show ($id) {
+        Validator::make(['id' => $id],['id' => 'required|integer|exists:orders,id']);
+        $data = Order::find($id);
+        $title = 'تفاصيل الطلب';
+        return view('dashboard.order.show',compact('data','title'));
+    }
+
+    public function status ($id,$status) {
+
+        Validator::make(['id' => $id],
+            [
+                'id' => 'required|integer|exists:orders,id',
+                'status' => 'required|integer|in:1,2,3',
+            ]);
+        $data = Order::findOrFail($id);
+        $data->status = $status;
+        $save = $data->save();
+        if (!$save) {
+            return back()->with('error','حدث شئ ما خطأ يرجى المحاولة مرة أخرى');
+        }
+        if ($status == '1') {
+            foreach ($data->orderItems as $orderItem) {
+                $orderItem->itemDetails->stock = $orderItem->itemDetails->stock - $orderItem->count;
+                $orderItem->itemDetails->save();
+            }
+        }
+        return back()->with('success','تم تغيير حالة الطلب');
+    }
 }

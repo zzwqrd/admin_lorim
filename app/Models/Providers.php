@@ -13,19 +13,19 @@ class Providers extends Model
     protected $table = 'providers';
 
 
-    // protected $fillable = [
-    //     'title_ar',
-    //     'title_en',
-    //     'image',
-    //     'description_ar',
-    //     'description_en',
-    //     'section_id',
-    // ];
+    protected $fillable = [
+        'title_ar',
+        'title_en',
+        'image',
+        'description_ar',
+        'description_en',
+        'section_id',
+        'shipping_cost',
+    ];
 
     protected $guarded = [
         'created_at',
         'updated_at',
-
     ];
 
 
@@ -49,6 +49,10 @@ class Providers extends Model
 
         }
 
+    }
+
+    public static function sippingPrice ($id) {
+        return Providers::where('id',$id)->first('shipping_cost')->shipping_cost;
     }
 
     public function section()

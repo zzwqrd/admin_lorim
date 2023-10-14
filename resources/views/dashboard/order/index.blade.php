@@ -32,7 +32,7 @@
                                 <thead>
                                     <tr>
                                         <th> كود الطلب </th>
-                                        <th> العنوان </th>
+                                        {{-- <th> العنوان </th> --}}
                                         <th> صاحب الطلب</th>
                                         <th> تفاصيل الطلب </th>
                                         <th> تكلفة الشحن </th>
@@ -52,10 +52,10 @@
                                                     {{ $item->code }}
                                                     <!--  </a>-->
                                                 </td>
-                                                <td>{{ $item->village->state . ' - ' . $item->village->city . ' - ' . $item->village->village }}
-                                                </td>
+                                                {{-- <td>{{ $item->village->state . ' - ' . $item->village->city . ' - ' . $item->village->village }}
+                                                </td> --}}
                                                 <td>
-                                                    {{ $item->user->first_name . ' ' . $item->user->last_name }}
+                                                    {{ $item->user->name . ' ' . $item->user->name }}
                                                     </br>
                                                     {{ $item->user->phone }}
 

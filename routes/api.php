@@ -56,4 +56,11 @@ Route::middleware('apiAuth')->group(function () {
         Route::delete('destroy/{id}', [\App\Http\Controllers\Api\RateController::class, 'destroy']);
     });
 
+
+    Route::prefix('order')->group(function () {
+        Route::post('store', [\App\Http\Controllers\Api\OrderController::class, 'store']);
+    });
+
+
+
 });
