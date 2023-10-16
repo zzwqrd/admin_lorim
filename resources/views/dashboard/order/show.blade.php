@@ -93,9 +93,9 @@
                             <div class="row mb-5">
                                 <div class="col-md-6 mb-3 mb-sm-0">
                                     <h5 class="font-weight-bold">بيانات صاحب الطلب</h5>
-                                    <p> {{ $data->user->first_name . ' ' . $data->user->last_name }}</p>
+                                    <p> الاسم: {{ $data->user->name }}</p>
+                                    <p> رقم الجوال: {{ $data->user->phone }}</p>
                                     <span style="white-space: pre-line">
-                                        {{-- {{ $data->user->city->state . ' ' . $data->user->city->city . ' ' . $data->village->village }} --}}
                                         {{ $data->address_description }}
                                     </span>
                                 </div>
@@ -116,7 +116,7 @@
                                             @foreach ($data->orderItems as $index => $item)
                                                 <tr>
                                                     <th scope="row">{{ $index }}</th>
-                                                    <td>{{ $item->itemDetails->title }}</td>
+                                                    <td>{{ $item->itemDetails->title_ar }}</td>
                                                     <td>{{ $item->count }}</td>
                                                     <td>{{ $item->price }}</td>
                                                     {{--                                                    <td>{{$item->count * $item->price}}</td> --}}

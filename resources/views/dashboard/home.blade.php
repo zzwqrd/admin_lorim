@@ -72,7 +72,7 @@
                     <i class="i-Checkout-Basket"></i>
                     <div class="content">
                         <p class="text-muted mt-2 mb-0">طلبات</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">80</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{ $data['orders'] }}</p>
                     </div>
                 </div>
             </div>

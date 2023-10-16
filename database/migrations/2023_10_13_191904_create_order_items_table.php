@@ -15,7 +15,10 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedInteger('item_id');
+            $table->unsignedInteger('sub_sections_id')->unsigned()->nullable();
+            $table->foreign('sub_sections_id')->references('id')->on('sub_sections')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedInteger('providers_id')->unsigned();
+            $table->foreign('providers_id')->references('id')->on('providers')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('count');
             $table->integer('price')->comment('for one peace');
             $table->timestamps();

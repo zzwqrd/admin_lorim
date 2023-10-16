@@ -9,7 +9,7 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'user_id','vendor_id','code','order_cost','status','delivery_cost','total_cost',
+        'user_id','providers_id','code','order_cost','status','delivery_cost','total_cost',
         'payment_method'
     ];
 
@@ -19,6 +19,10 @@ class Order extends Model
 
     public function user () {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function providers () {
+        return $this->belongsTo(Providers::class,'providers_id','id');
     }
 
     public function paymentMethod () {

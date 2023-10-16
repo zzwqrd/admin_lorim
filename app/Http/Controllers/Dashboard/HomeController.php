@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Providers;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class HomeController extends Controller
 
         $data['users'] = User::get()->count();
         $data['providers'] = Providers::get()->count();
+        $data['orders'] = Order::get()->count();
 
         return view('dashboard.home', compact('data'));
     }
