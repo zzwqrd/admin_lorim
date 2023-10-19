@@ -92,12 +92,13 @@
                                                                 @endif
                                                                 @if ($item->status == '1')
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('dashboard.orderStatus', ['id' => $item->id, 'status' => '3']) }}">شحن</a>
+                                                                        href="{{ route('dashboard.orderStatus', ['id' => $item->id, 'status' => '3']) }}">قيد
+                                                                        التنفيذ</a>
                                                                 @endif
                                                                 @if ($item->status == '3')
                                                                     <a class="dropdown-item"
                                                                         href="{{ route('dashboard.orderStatus', ['id' => $item->id, 'status' => '4']) }}">تم
-                                                                        التوصيل</a>
+                                                                        الانتهاء</a>
                                                                 @endif
                                                                 @if ($item->status != '4')
                                                                     <a class="dropdown-item"
@@ -110,7 +111,7 @@
 
                                                     @if ($item->status == '4')
                                                         <span style="margin: 7px;">
-                                                            تم التوصيل
+                                                            تم الانتهاء
                                                         </span>
                                                     @endif
                                                     @if ($item->status == '2')

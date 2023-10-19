@@ -67,7 +67,7 @@ class OrderController extends Controller
         }
         if ($status == '1') {
             foreach ($data->orderItems as $orderItem) {
-                $orderItem->itemDetails->stock = $orderItem->itemDetails->stock - $orderItem->count;
+                // $orderItem->itemDetails->orderCost = $orderItem->itemDetails->orderCost - $orderItem->count;
                 $orderItem->itemDetails->save();
             }
         }

@@ -23,10 +23,13 @@ class OrderController extends ResponseController
                 'address_description' => 'required|string',
                 'coupon' => 'nullable|exists:coupons,code',
                 'provider' => 'required|integer|exists:providers,id',
-                'items' => 'required|array',
+                'images'     => 'required|array',
+                'images.*' => 'required|image|mimes:png,jpg,jpeg|max:5120',
 
             ]
         );
+
+        $order = new Order();
 
 
         // get coupon details
@@ -62,7 +65,22 @@ class OrderController extends ResponseController
 
         $order_inputs['address_description'] = request()->address_description;
 
+
+
+        if (request()->hasFile('images')){
+            $images = request()->file('images');
+            foreach ($images as $index => $image) {
+                $imageName = md5($index.time()). '.'.$image->getClientOriginalExtension();
+                $imageMove = $image->move(public_path('uploads/order'),$imageName);
+                if (!$imageMove) {
+                    return $this->apiResponse(['message' => trans('response.failed_image')],444);
+                }
+                $order_inputs['images'] = $imageName;
+            }
+        }
+
         $create = Order::create($order_inputs);
+
         if (!$create) {
             return response()->json(['message' => trans('response.failed')],444);
         }
@@ -72,6 +90,10 @@ class OrderController extends ResponseController
           $state->status = '0';
           $state->save();
         }
+
+
+
+
 
         // add order items
         foreach (request()->items as $item) {
@@ -83,9 +105,8 @@ class OrderController extends ResponseController
             $inputs['count'] = $item['count'];
             $inputs['price'] = $itemPrice;
 
-
-
             $createItems = OrderItems::create($inputs);
+
             if (!$createItems) {
                 Order::find($inputs['order_id'])->delete();
                 return response()->json(['message' => trans('response.failed')],444);

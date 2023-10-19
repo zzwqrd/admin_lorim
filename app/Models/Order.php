@@ -10,8 +10,23 @@ class Order extends Model
 
     protected $fillable = [
         'user_id','providers_id','code','order_cost','status','delivery_cost','total_cost',
-        'payment_method'
+        'payment_method', 'address_description', 'images'
     ];
+
+    public function getImageAttribute($image)
+    {
+        return isset($image) ? assetsUpload() . '/order/' . $image : '';
+    }
+
+    public function setImageAttribute($image)
+    {
+
+        if($image) {
+
+            return $this->attributes['images'] = uploadFile($image, '/order/');
+
+        }
+    }
 
     public function orderItems () {
         return $this->hasMany(OrderItems::class,'order_id','id');

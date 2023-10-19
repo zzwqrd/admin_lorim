@@ -23,6 +23,8 @@ return new class extends Migration
                 ->comment('0=>new,1=>confirmed,2=>canceled,3=>underway,4=>done');
             $table->enum('payment_method',['0','1'])
                 ->comment('0 => online, 1=>cash on delivery');
+            $table->string('address_description');
+            $table->string('images');
             $table->timestamps();
 
         });

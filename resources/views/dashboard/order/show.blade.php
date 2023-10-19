@@ -45,14 +45,14 @@
                             @if ($data->status == '1')
                                 <a href="{{ route('dashboard.orderStatus', ['id' => $data->id, 'status' => '3']) }}">
                                     <button class="btn btn-warning mb-sm-0 mb-3" style="margin: 7px;">
-                                        شحن
+                                        قيد التنفيذ
                                     </button>
                                 </a>
                             @endif
                             @if ($data->status == '3')
                                 <a href="{{ route('dashboard.orderStatus', ['id' => $data->id, 'status' => '4']) }}">
                                     <button class="btn btn-success mb-sm-0 mb-3" style="margin: 7px;">
-                                        تم التوصيل
+                                        تم الانتهاء من الطلب
                                     </button>
                                 </a>
                             @endif
@@ -70,7 +70,7 @@
                             @endif
                             @if ($data->status == '4')
                                 <span style="margin: 7px;">
-                                    تم التوصيل
+                                    تم الانتهاء من الطلب
                                 </span>
                             @endif
 
@@ -106,9 +106,9 @@
                                         <thead class="bg-gray-300">
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">اسم المنتج</th>
-                                                <th scope="col">الكمية</th>
-                                                <th scope="col">سعر الوحدة</th>
+                                                <th scope="col">اسم الخدمة</th>
+                                                <th scope="col">عدد الخدمات</th>
+                                                <th scope="col">سعر الخدمة</th>
                                                 {{--                                                <th scope="col">الاجمالي</th> --}}
                                             </tr>
                                         </thead>
@@ -116,7 +116,13 @@
                                             @foreach ($data->orderItems as $index => $item)
                                                 <tr>
                                                     <th scope="row">{{ $index }}</th>
-                                                    <td>{{ $item->itemDetails->title_ar }}</td>
+                                                    <td>
+                                                        {{ $item->itemDetails[lang('title')] }}
+                                                        <br>
+                                                        <span>
+                                                            {{ $data->providers[lang('title')] }}
+                                                        </span>
+                                                    </td>
                                                     <td>{{ $item->count }}</td>
                                                     <td>{{ $item->price }}</td>
                                                     {{--                                                    <td>{{$item->count * $item->price}}</td> --}}
@@ -132,7 +138,7 @@
                                         @if (!empty($data->coupon_discount))
                                             <p>قيمة الخصم : <span>{{ $data->coupon_discount }} % </span></p>
                                         @endif
-                                        <p>سعر التوصيل: <span>{{ $data->shipping_cost }}</span></p>
+                                        <p>سعر الطلب: <span>{{ $data->shipping_cost }}</span></p>
                                         <h5 class="font-weight-bold">الإجمالي: <span> {{ $data->total_cost }}</span></h5>
                                     </div>
                                 </div>
