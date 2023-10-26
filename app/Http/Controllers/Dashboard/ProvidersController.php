@@ -122,13 +122,15 @@ class ProvidersController extends Controller
            $validated['title_en'] = $request->title_en;
            $validated['description_ar'] = $request->description_ar;
            $validated['description_en'] = $request->description_en;
-           $validated['description_en'] = $request->description_en;
            $validated['image'] = $request->image;
-           $validated['section_id'] = $request->section;
+        //    $validated['section_id'] = $request->section;
+           $validated['section'] = $data->providsub()->sync((array)$request->input('section'));
            $validated['providsub'] = $data->providsub()->sync((array)$request->input('providsub'));
 
 
           $data->update($validated);
+
+
 
 
            return back()->with('success', trans('response.updated'));
