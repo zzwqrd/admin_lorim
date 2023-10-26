@@ -71,6 +71,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['admin', 'lang'])->g
         // Route::resource('photos', ProvidersController::class);
         Route::get('index', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'index']);
         Route::get('show/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'show']);
+        Route::get('showsub/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'showsub']);
         Route::get('create', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'create']);
         Route::post('store', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'store']);
         Route::get('edit/{id}', [\App\Http\Controllers\Dashboard\ProvidersController::class, 'edit']);

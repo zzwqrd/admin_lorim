@@ -76,15 +76,14 @@ class ProvidersController extends Controller
      */
     public function show($id)
     {
+        $data = SubSections::where('section_id', $id)->get();
 
-        Validator::make(
-            [
-                'id' => $id,
-            ],
-            [
-                'id' => 'required|integer|exists:sections,id',
-            ]
-        )->validate();
+        return response()->json(['status' => 1, 'data' => $data]);
+    }
+
+    public function showsub($id)
+    {
+
 
         $data = SubSections::where('section_id', $id)->get();
 
@@ -98,9 +97,10 @@ class ProvidersController extends Controller
     {
 
         $data = Providers::findOrFail($id);
+
         $sections = Sections::orderBy('id', 'desc')->get();
 
-        $subSections = SubSections::where('section_id', $id)->get();
+        $subSections = SubSections::orderBy('id', 'desc')->get();
 
         return view('dashboard.providers.edit', compact('data', 'sections', 'subSections'));
     }

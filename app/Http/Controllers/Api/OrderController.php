@@ -67,17 +67,17 @@ class OrderController extends ResponseController
 
 
 
-        if (request()->hasFile('images')){
-            $images = request()->file('images');
-            foreach ($images as $index => $image) {
-                $imageName = md5($index.time()). '.'.$image->getClientOriginalExtension();
-                $imageMove = $image->move(public_path('uploads/order'),$imageName);
-                if (!$imageMove) {
-                    return $this->apiResponse(['message' => trans('response.failed_image')],444);
-                }
-                $order_inputs['images'] = $imageName;
+        $images = request()->images;
+
+        foreach ($images as $index => $image) {
+            $imageName = md5($index.time()). '.'.$image->getClientOriginalExtension();
+            $imageMove = $image->move(public_path('uploads/attaches'),$imageName);
+            if (!$imageMove) {
+                return $this->apiResponse(['message' => trans('response.failed_image')],444);
             }
+            $order_inputs['images'] = $imageName;
         }
+        // $order_inputs['images'] = request()->images;
 
         $create = Order::create($order_inputs);
 

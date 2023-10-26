@@ -77,7 +77,7 @@
                                 <label for="description_ar">المقال بلغة العربيه </label>
                                 @isset($data)
                                     <textarea type="text" class="form-control" name="description_ar" id="description_ar" placeholder="description_ar "
-                                        value="{{ $data->description_en }}" autocomplete="off">{{ $data->description_en }}</textarea>
+                                        value="{{ $data->description_en }}" autocomplete="off">{{ $data->description_ar }}</textarea>
                                 @endisset
 
                                 @if ($errors->has('description_ar'))
@@ -121,16 +121,15 @@
                                                     {{-- sectionTo --}}
                                                     {{-- multiple --}}
                                                     <!--placeholder-->
-                                                    {{-- <option selected disabled>اختر القسم </option> --}}
+
                                                     @foreach ($sections as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            @if ($dataSection->id == $item->id) selected @endif>
+                                                        <option
+                                                            value="{{ $item->id }}"@if ($item->id == $dataSection->id) selected @endif>
                                                             {{ $item[lang('title')] }}
                                                         </option>
                                                     @endforeach
 
-                                                    {{-- <option value="{{ $section->id }}"> {{ $section[lang('title')] }}
-                                                    </option> --}}
+
 
                                                 </select>
 
@@ -148,22 +147,14 @@
                                                     class="form-control subsection select2-select" name="providsub[]"
                                                     multiple>
 
-                                                    {{-- @foreach ($data->providsub as $item)
+                                                    {{-- @foreach ($subSections as $i)
+                                                        <option value="{{ $i->id }}"
+                                                            @if (in_array($i->id, $data->providsub->pluck('id')->toArray())) selected @endif>
+                                                            {{ $i[lang('title')] }}
+                                                        </option>
                                                     @endforeach --}}
 
-                                                    {{-- @foreach ($data->providsub as $item)
-                                                        @if ($data->providsub != null || $data->providsub != [])
-                                                            <option
-                                                                value="{{ $item->sub_sections_id == $dataSection->id }}"
-                                                                selected>
-                                                                {{ $item[lang('title')] }}
-                                                            </option> --}}
-                                                    {{-- @else
-                                                        @foreach ($sub as $item)
 
-                                                        @endforeach --}}
-                                                    {{-- @endif
-                                                    @endforeach --}}
 
                                                 </select>
 
@@ -192,48 +183,7 @@
 
                             </div>
 
-                            {{-- <div class="col-md-6 form-group mb-3">
-                                <label for="inputName" class="control-label">القسم</label>
-                                <select class="form-control attribute" name="section[]" id="section">
-                                    <option selected disabled>اختر القسم </option>
-                                    @foreach ($data->section as $section)
-                                        <option value="{{ $section->id }}"
-                                            @if ($data->section->containsStrict('id', $section->id)) selected @endif>
-                                            {{ $section[lang('title')] }}
-                                        </option>
 
-                                </select>
-
-                                @if ($errors->has('section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('section') }} </strong>
-                                    </span>
-                                @endif
-                            </div>
-
-                            <div class="col-md-6 form-group mb-3">
-                                <label for="sub_section" class="control-label"> القسم الفرعي</label>
-                                @foreach ($data->providsub as $p)
-                                    <select data-placeholder="اختر القسم أولا " class="form-control select2-select"
-                                        name="providsub[]" id="sub_section" multiple required>
-
-
-                                        <option value="{{ $p->id }}"
-                                            @if ($data->providsub->containsStrict('id', $p->id)) selected="selected" @endif>
-                                            {{ $p[lang('title')] }}
-                                        </option>
-
-                                    </select>
-                                @endforeach
-                                @if ($errors->has('sub_section'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('sub_section') }} </strong>
-                                    </span>
-                                @endif
-                            </div> --}}
-                            {{-- <div class="col-12 pt-3">
-                                <textarea name="description" class="editor with-file-explorer">{{ old('description') }}</textarea>
-                            </div> --}}
                             <div class="col-md-12">
                                 <button class="btn btn-primary">حفظ</button>
                             </div>
@@ -307,6 +257,67 @@
         });
     </script> --}}
 
+    <script>
+        $(document).ready(function() {
+            'use strict';
+
+            var values = [];
+            $('.form-group select[name="section[]"]').each(function(i, sel) {
+                $(this).parent().closest('.app_selectd').find(
+                    '.subsection option').remove();
+                var selectedVal = $(sel).val();
+                values.push(selectedVal);
+                // console.log(values.push(selectedVal));
+                // console.log(values);
+                console.log(selectedVal);
+
+
+                var dataid = $(this).parent().closest('.app_selectd').find(
+                    '.subsection');
+
+
+                var id = $(this).val();
+
+                var url = "{{ url('dashboard/providers/showsub') }}" + '/' + selectedVal;
+
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'get',
+                    data: {
+                        selectedVal: selectedVal,
+                        dataid: dataid,
+                    },
+
+                    // mimeType: "multipart/form-data",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        // alert(url);
+                    },
+                    success: function(data) {
+                        if (data.status) {
+
+
+                            $.each(data.data, function(index, value) {
+                                console.log([index]);
+                                console.log(values);
+
+
+                                dataid.append("<option value=" +
+                                    value
+                                    .id + " selected>" + value.title_ar +
+                                    "</option>");
+
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
 
 
 
@@ -318,6 +329,8 @@
                 event.preventDefault();
                 $(this).parent().closest('.app_selectd').find(
                     '.subsection option').remove();
+
+                console.log($(this).attr('option[value]'));
 
 
                 var dataid = $(this).parent().closest('.app_selectd').find(

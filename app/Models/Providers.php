@@ -60,6 +60,11 @@ class Providers extends Model
         return $this->belongsToMany(Sections::class, 'provider_section');
     }
 
+    public function section2()
+    {
+        return $this->belongsToMany(Sections::class, 'sections_id');
+    }
+
     public function providsub()
     {
         return $this->belongsToMany(SubSections::class, 'provider_sub_section');
