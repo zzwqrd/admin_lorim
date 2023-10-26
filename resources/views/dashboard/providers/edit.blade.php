@@ -147,6 +147,9 @@
                                                     class="form-control subsection select2-select" name="providsub[]"
                                                     multiple>
 
+                                                    @foreach ($data->providsub as $sub)
+                                                    @endforeach
+
                                                     {{-- @foreach ($subSections as $i)
                                                         <option value="{{ $i->id }}"
                                                             @if (in_array($i->id, $data->providsub->pluck('id')->toArray())) selected @endif>
@@ -275,6 +278,8 @@
                 var dataid = $(this).parent().closest('.app_selectd').find(
                     '.subsection');
 
+                var g = '{{ $sub->id }}';
+
 
                 var id = $(this).val();
 
@@ -287,6 +292,7 @@
                     data: {
                         selectedVal: selectedVal,
                         dataid: dataid,
+
                     },
 
                     // mimeType: "multipart/form-data",
@@ -301,14 +307,21 @@
 
 
                             $.each(data.data, function(index, value) {
-                                console.log([index]);
-                                console.log(values);
+                                // console.log([index]);
+                                // console.log(values);
+                                // console.log("{{ $data->providsub }}");
 
 
-                                dataid.append("<option value=" +
-                                    value
-                                    .id + " selected>" + value.title_ar +
-                                    "</option>");
+
+                                var html =
+                                    '<option value=" \n' +
+                                    value.id +
+                                    ' "selected > \n' +
+                                    value.title_ar + ' </option>';
+
+
+
+                                dataid.append(html);
 
                             });
                         }
@@ -358,7 +371,6 @@
                     },
                     success: function(data) {
                         if (data.status) {
-
 
                             $.each(data.data, function(index, value) {
                                 console.log(dataid);
