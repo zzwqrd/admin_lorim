@@ -144,7 +144,9 @@
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="sub_section" class="control-label"> القسم الفرعي</label>
-
+                                                @foreach ($data['providsub'] as $h)
+                                                    {{ $h->id }}
+                                                @endforeach
                                                 <select data-placeholder="اختر القسم أولا "
                                                     class="form-control subsection select2-select" name="providsub[]"
                                                     multiple onclick="console.log($(this).val())">
@@ -152,14 +154,13 @@
 
                                                     @foreach ($subSections as $i)
                                                         @foreach ($sections as $m)
-                                                            @foreach ($data['providsub'] as $h)
-                                                            @endforeach
                                                             @if ($m->id == $dataSection->id)
                                                                 {{-- {{ $m->id }} --}}
                                                                 @if ($m->id == $i->section_id)
                                                                     <option
-                                                                        value="{{ $i->id }} @if ($i->id == $h->sub_sections_id) {{ $i->id }} @endif"
-                                                                        @if ($i->id == $h->sub_sections_id) selected @endif>
+                                                                        value=" @if ($m->id == $i->section_id) {{ $i->id }} @endif"
+                                                                        @foreach ($data['providsub'] as $h)
+                                                                         @if ($i->id == $h->id) selected @endif @endforeach>
                                                                         {{ $i[lang('title')] }}
                                                                     </option>
                                                                 @endif
