@@ -127,6 +127,11 @@ class ProvidersController extends Controller
 
 
     $comments = Providers::with('section', 'providsub')
+    ->join('provider_section', 'providers.id', '=', 'provider_section.providers_id')
+    ->join('provider_sub_section', 'provider_sub_section.sections_id', '=', 'provider_section.id')
+    ->join('sections', 'sections.id', '=', 'provider_section.sections_id')
+    ->join('sub_sections', 'sub_sections.id', '=', 'provider_sub_section.sub_sections_id')
+    ->select('providers.*','provider_section.id as provider_section_id', 'sections.id as section_id', 'sub_sections.id as sub_sections_id')
     ->where('providers.id', '=', $id)
     ->get()
     ->toArray();

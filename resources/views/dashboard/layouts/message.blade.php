@@ -34,18 +34,35 @@
     </div>
 @endif --}}
 
-{{-- <script>
+<div id="toast-container" class="toast-top-right">
+
+    @if ($message = Session::get('success'))
+        <div class="toast toast-success alert alert-success alert-block session-box">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button>
+            @if (is_array($message))
+                @foreach ($message as $m)
+                    <h4 class="text-success text-center"> {{ $m }}</h4>
+                @endforeach
+            @else
+                <h4 style="text-align: center;"> {{ $message }}</h4>
+            @endif
+        </div>
+    @endif
+</div>
+
+<script>
     toastr.options.closeButton = true;
     toastr.options.closeMethod = 'fadeOut';
     toastr.options.closeDuration = 100;
     toastr.success(data.message);
-</script> --}}
+</script>
 
 
 
 
 
-@if ($message = Session::get('success'))
+{{-- @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block session-box">
         <i class="fa fa-check"></i>
         <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button>
@@ -57,7 +74,7 @@
             <h4 style="text-align: center;"> {{ $message }}</h4>
         @endif
     </div>
-@endif
+@endif --}}
 @if ($message = Session::get('error'))
     <div class="alert alert-danger alert-block session-box">
         <i class="fa fa-ban"></i>
