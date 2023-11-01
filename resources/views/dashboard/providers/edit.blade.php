@@ -144,9 +144,9 @@
 
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="sub_section" class="control-label"> القسم الفرعي</label>
-                                                @foreach ($data['providsub'] as $h)
+                                                {{-- @foreach ($data['providsub'] as $h)
                                                     {{ $h->id }}
-                                                @endforeach
+                                                @endforeach --}}
                                                 <select data-placeholder="اختر القسم أولا "
                                                     class="form-control subsection select2-select" name="providsub[]"
                                                     multiple onclick="console.log($(this).val())">
@@ -167,8 +167,6 @@
                                                             @endif
                                                         @endforeach
                                                     @endforeach
-
-
 
                                                 </select>
 
@@ -249,6 +247,9 @@
 
             $('body').on('click', '.remove', function() {
                 $(this).closest('.app_selectd').remove();
+
+                $(this).parent().closest('.app_selectd').find(
+                    '.form-group select[name="section[]"]').val("");
             });
 
 
