@@ -58,6 +58,8 @@ class ProvidersController extends Controller
 
 
 
+
+
             return back()->with('success', trans('response.added'));
 
         } catch (Exception $e) {
@@ -96,13 +98,51 @@ class ProvidersController extends Controller
     public function edit($id)
     {
 
+
+
+     $this->validate(request(), ['id' => $id], [
+            'id' => 'required|integer|exists:providers,id',
+        ]);
+
+
         $data = Providers::findOrFail($id);
 
         $sections = Sections::orderBy('id', 'desc')->get();
 
         $subSections = SubSections::orderBy('id', 'desc')->get();
 
-        return view('dashboard.providers.edit', compact('data', 'sections', 'subSections'));
+    //     $test = DB::table('providers')
+        // ->join('provider_section', 'providers.id', '=', 'provider_section.providers_id')
+        // ->join('provider_sub_section', 'provider_sub_section.sections_id', '=', 'provider_section.id')
+        // ->join('sections', 'sections.id', '=', 'provider_section.sections_id')
+        // ->join('sub_sections', 'sub_sections.id', '=', 'provider_sub_section.sub_sections_id')
+        // ->select('providers.*','provider_section.id as provider_section_id', 'sections.id as section_id', 'sub_sections.id as sub_sections_id')
+        // ->where('providers.id', '=', $id)
+        // ->get();
+
+    //    $tt = $test->groupBy('id');
+    //    $tt = $test->groupBy('section_id');
+
+
+
+
+    $comments = Providers::with('section', 'providsub')
+    ->join('provider_section', 'providers.id', '=', 'provider_section.providers_id')
+    ->join('provider_sub_section', 'provider_sub_section.sections_id', '=', 'provider_section.id')
+    ->join('sections', 'sections.id', '=', 'provider_section.sections_id')
+    ->join('sub_sections', 'sub_sections.id', '=', 'provider_sub_section.sub_sections_id')
+    ->select('providers.*','provider_section.id as provider_section_id', 'sections.id as section_id', 'sub_sections.id as sub_sections_id')
+    ->where('providers.id', '=', $id)
+    ->get()
+    ->toArray();
+
+    $grouped = collect($comments);
+
+    $test =  $grouped->groupBy('provider_section_id');
+
+    // dd($test);
+
+        return view('dashboard.providers.edit', compact('data','comments', 'sections', 'subSections'));
     }
 
     /**
@@ -124,8 +164,12 @@ class ProvidersController extends Controller
            $validated['description_en'] = $request->description_en;
            $validated['image'] = $request->image;
         //    $validated['section_id'] = $request->section;
-           $validated['section'] = $data->providsub()->sync((array)$request->input('section'));
-           $validated['providsub'] = $data->providsub()->sync((array)$request->input('providsub'));
+           $validated['section'] = $data->section()->sync((array) $request->input('section'));
+           $validated['providsub'] = $data->providsub()->sync((array) $request->input('providsub'));
+
+        //    $data->section()->sync((array) $request->input('section'));
+
+        //    $data->providsub()->sync((array) $request->input('providsub'));
 
 
           $data->update($validated);

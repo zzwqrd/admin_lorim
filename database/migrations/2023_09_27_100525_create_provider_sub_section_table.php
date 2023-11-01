@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('provider_sub_section', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('sections_id')->unsigned()->nullable();
             $table->unsignedInteger('sub_sections_id')->unsigned()->nullable();
             $table->foreign('sub_sections_id')->references('id')->on('sub_sections')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('providers_id')->unsigned();

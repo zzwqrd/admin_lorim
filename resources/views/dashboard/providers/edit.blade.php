@@ -109,11 +109,13 @@
                                 </div>
                                 <div id="add_new" class="input-group control-group after-add-more">
 
-                                    @foreach ($data->section as $dataSection)
+                                    @foreach ($data['section'] as $dataSection)
                                         <div class="control-group app_selectd  input-group"
                                             style="margin-top:10px;padding: 10px;">
                                             <div class="col-md-6 form-group mb-3">
                                                 <label for="section" class="control-label">القسم</label>
+
+
                                                 {{-- "{{ url('dashboard/providers/show') }}" + '/' + id; --}}
                                                 <select name="section[]" data-placeholder="حدد القسم"
                                                     class="form-control  SlectBox">
@@ -145,17 +147,25 @@
 
                                                 <select data-placeholder="اختر القسم أولا "
                                                     class="form-control subsection select2-select" name="providsub[]"
-                                                    multiple>
+                                                    multiple onclick="console.log($(this).val())">
 
-                                                    @foreach ($data->providsub as $sub)
+
+                                                    @foreach ($subSections as $i)
+                                                        @foreach ($sections as $m)
+                                                            @foreach ($data['providsub'] as $h)
+                                                            @endforeach
+                                                            @if ($m->id == $dataSection->id)
+                                                                {{-- {{ $m->id }} --}}
+                                                                @if ($m->id == $i->section_id)
+                                                                    <option
+                                                                        value="{{ $i->id }} @if ($i->id == $h->sub_sections_id) {{ $i->id }} @endif"
+                                                                        @if ($i->id == $h->sub_sections_id) selected @endif>
+                                                                        {{ $i[lang('title')] }}
+                                                                    </option>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
                                                     @endforeach
-
-                                                    {{-- @foreach ($subSections as $i)
-                                                        <option value="{{ $i->id }}"
-                                                            @if (in_array($i->id, $data->providsub->pluck('id')->toArray())) selected @endif>
-                                                            {{ $i[lang('title')] }}
-                                                        </option>
-                                                    @endforeach --}}
 
 
 
@@ -175,7 +185,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-
 
                                 </div>
                                 <div class="input-group-btn px-3">
@@ -260,7 +269,7 @@
         });
     </script> --}}
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             'use strict';
 
@@ -277,9 +286,6 @@
 
                 var dataid = $(this).parent().closest('.app_selectd').find(
                     '.subsection');
-
-                var g = '{{ $sub->id }}';
-
 
                 var id = $(this).val();
 
@@ -309,14 +315,11 @@
                             $.each(data.data, function(index, value) {
                                 // console.log([index]);
                                 // console.log(values);
-                                // console.log("{{ $data->providsub }}");
-
-
 
                                 var html =
                                     '<option value=" \n' +
                                     value.id +
-                                    ' "selected > \n' +
+                                    ' " {{ $sub->id == '+value.id+' ? 'selected="selected"' : '' }} > \n' +
                                     value.title_ar + ' </option>';
 
 
@@ -329,7 +332,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
 
 

@@ -43,6 +43,7 @@ class Sections extends Model
         return $this->belongsToMany(Providers::class, 'provider_section');
     }
 
+
 // public function sections()
 // {
 //     return $this->belongsTo(Sections::all());

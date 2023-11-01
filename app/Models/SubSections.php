@@ -26,7 +26,7 @@ class SubSections extends Model
 
     public function providers()
     {
-        return $this->belongsTo(Providers::class, 'provider_sub_section');
+        return $this->belongsToMany(Providers::class, 'provider_sub_section');
     }
 
 }
