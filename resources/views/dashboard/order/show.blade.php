@@ -109,13 +109,15 @@
                                                 <th scope="col">اسم الخدمة</th>
                                                 <th scope="col">عدد الخدمات</th>
                                                 <th scope="col">سعر الخدمة</th>
-                                                {{--                                                <th scope="col">الاجمالي</th> --}}
+                                                <th scope="col">الاجمالي</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($data->orderItems as $index => $item)
                                                 <tr>
-                                                    <th scope="row">{{ $index }}</th>
+                                                    <th scope="row">{{ $index }}
+                                                        <img src="{{ $data->images }}" alt="">
+                                                    </th>
                                                     <td>
                                                         {{ $item->itemDetails[lang('title')] }}
                                                         <br>
@@ -125,7 +127,7 @@
                                                     </td>
                                                     <td>{{ $item->count }}</td>
                                                     <td>{{ $item->price }}</td>
-                                                    {{--                                                    <td>{{$item->count * $item->price}}</td> --}}
+                                                    <td>{{ $item->count * $item->price }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

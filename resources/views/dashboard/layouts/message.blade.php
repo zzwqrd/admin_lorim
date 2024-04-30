@@ -34,29 +34,26 @@
     </div>
 @endif --}}
 
-<div id="toast-container" class="toast-top-right">
+{{-- toast-bottom-left تغيير عرض الرسالة --}}
+
+<div id="toast-container" class="toast-bottom-left">
 
     @if ($message = Session::get('success'))
         <div class="toast toast-success alert alert-success alert-block session-box">
-            <i class="fa fa-check"></i>
-            <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button>
+            {{-- <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert"><i class="glyphicon glyphicon-remove"></i></button> --}}
             @if (is_array($message))
                 @foreach ($message as $m)
                     <h4 class="text-success text-center"> {{ $m }}</h4>
                 @endforeach
             @else
-                <h4 style="text-align: center;"> {{ $message }}</h4>
+                <h4 style="text-align: center; color: #fff"> {{ $message }}</h4>
             @endif
         </div>
     @endif
 </div>
 
-<script>
-    toastr.options.closeButton = true;
-    toastr.options.closeMethod = 'fadeOut';
-    toastr.options.closeDuration = 100;
-    toastr.success(data.message);
-</script>
+
 
 
 
@@ -75,6 +72,7 @@
         @endif
     </div>
 @endif --}}
+
 @if ($message = Session::get('error'))
     <div class="alert alert-danger alert-block session-box">
         <i class="fa fa-ban"></i>
@@ -119,3 +117,11 @@
         @endif
     </div>
 @endif
+
+
+<script>
+    toastr.options.closeButton = true;
+    toastr.options.closeMethod = 'fadeOut';
+    toastr.options.closeDuration = 100;
+    toastr.success(data.message);
+</script>

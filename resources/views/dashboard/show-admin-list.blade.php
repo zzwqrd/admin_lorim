@@ -16,6 +16,7 @@
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-left">
+
                 <div class="card-header">
                     <div class="card-title mb-3">
                         <strong class="text-primary"> قائمة المديرين</strong>
